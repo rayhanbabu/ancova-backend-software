@@ -10,6 +10,8 @@ use App\Http\Controllers\WeekController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\CollorController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,18 +133,37 @@ use App\Http\Controllers\NoticeController;
             Route::delete('/admin/collor_delete',[CollorController::class,'collor_delete']);
 
 
-       // Notice 
-       Route::get('/admin/notice',[NoticeController::class,'index']);
-       Route::get('/admin/notice_fetch',[NoticeController::class,'fetch']);
-       Route::get('/admin/notice/fetch_data',[NoticeController::class,'fetch_data']); 
+         // Notice 
+         Route::get('/admin/notice',[NoticeController::class,'index']);
+         Route::get('/admin/notice_fetch',[NoticeController::class,'fetch']);
+         Route::get('/admin/notice/fetch_data',[NoticeController::class,'fetch_data']); 
      
-       Route::get('/admin/notice_create',[NoticeController::class,'notice_create']);
-       Route::post('/admin/notice_insert',[NoticeController::class,'store']); 
-       Route::get('/admin/notice_view/{id}',[NoticeController::class,'view']);
-       Route::get('/admin/notice_edit/{id}',[NoticeController::class,'edit']);
-       Route::post('/admin/notice_update/{id}',[NoticeController::class,'update']);
-       Route::get('/admin/notice_delete/{id}',[NoticeController::class,'destroy']);
+         Route::get('/admin/notice_create',[NoticeController::class,'notice_create']);
+         Route::post('/admin/notice_insert',[NoticeController::class,'store']); 
+         Route::get('/admin/notice_view/{id}',[NoticeController::class,'view']);
+         Route::get('/admin/notice_edit/{id}',[NoticeController::class,'edit']);
+         Route::post('/admin/notice_update/{id}',[NoticeController::class,'update']);
+         Route::get('/admin/notice_delete/{id}',[NoticeController::class,'destroy']);
 
+
+            //Client  create
+            Route::get('/admin/client_view',[ClientController::class,'client_view']);
+            Route::get('/admin/client_fetch',[ClientController::class,'fetch']);
+            Route::get('/admin/client/fetch_data',[ClientController::class,'fetch_data']);
+            Route::post('/admin/client_store',[ClientController::class,'store']);
+            Route::get('/admin/client_edit',[ClientController::class,'client_edit']);
+            Route::post('/admin/client_update',[ClientController::class,'client_update']);
+            Route::delete('/admin/client_delete',[ClientController::class,'client_delete']);
+
+
+          //Payment View 
+          Route::get('/admin/paymentview',[InvoiceController::class,'paymentview']);
+          Route::get('/admin/payment_fetch',[InvoiceController::class,'fetch']);
+          Route::get('/admin/payment/fetch_data',[InvoiceController::class,'fetch_data']);
+          Route::post('/admin/payment_status',[InvoiceController::class,'payment_status']);
+          Route::post('/admin/payment_delete',[InvoiceController::class,'payment_delete']);
+          Route::post('/admin/admin_invoice_create',[InvoiceController::class,'admin_invoice_create']);
+          Route::get('/admin/payment_refresh',[InvoiceController::class,'payment_refresh']);
    
           });
 

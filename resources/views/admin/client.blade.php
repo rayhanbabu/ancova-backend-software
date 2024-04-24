@@ -1,12 +1,11 @@
 @extends('admin.layout')
 @section('page_title','Admin Panel')
-@section('teacher','active')
+@section('client','active')
 @section('content')
-
-  <div class="card mt-3 mb-0"> 
-   <div class="card-header ">
-    <div class="row">
-                 <div class="col-sm-3 my-2"> <h5 class="mt-0"> Member View </h5></div>
+ <div class="card mt-3 mb-0"> 
+    <div class="card-header ">
+       <div class="row">
+                 <div class="col-sm-3 my-2"> <h5 class="mt-0"> Client View </h5></div>
                    <div class="col-sm-3 my-2">
                       <div class="d-grid gap-2 d-flex justify-content-end"> 
                          <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Add</button>  
@@ -57,21 +56,26 @@
     <thead>
        <tr>
           <th  width="10%"> Image</th>
-          <th width="25%" class="sorting" data-sorting_type="asc" data-column_name="teacher_name" style="cursor: pointer">Member Name 
-                <span id="teacher_name_icon" ><i class="fas fa-sort-amount-up-alt"></i></span> </th>
-          <th  width="20%"> Nickname</th>
-          <th  width="25%"> Designation </th>
+          <th width="25%" class="sorting" data-sorting_type="asc" data-column_name="client_name" style="cursor: pointer">Client Name 
+                <span id="client_name_icon" ><i class="fas fa-sort-amount-up-alt"></i></span> </th>
           <th  width="10%"> Phone</th>
           <th  width="10%"> Email</th>
-          <th  width="10%"> Password</th>
+          <th  width="10%"> Address</th>
+          <th  width="10%"> payment_amount</th>
           <th  width="10%"> </th>
 		      <th  width="10%"> </th>
           <th  width="10%"> </th>
-          <th  width="10%"> Present address </th>
-          <th  width="10%"> Permanent address </th>
-		      <th  width="10%"> Bank details </th>
-          <th  width="10%"> Login Code </th>
-       
+          <th  width="10%"> Created date </th>
+          <th  width="10%"> Expired date </th>
+          <th  width="10%"> Subscribe </th>
+          <th  width="10%"> Service Info </th>
+          <th  width="10%"> Domain Info </th>
+          <th  width="10%"> Total Amount </th>
+		      <th  width="10%"> Discount info </th>
+          <th  width="10%"> Discount Amount </th>
+          <th  width="10%"> Client Info </th>
+          <th  width="10%"> Client  Ref. </th>
+          <th  width="10%"> Created at </th>
       </tr>
 
        <tr>
@@ -114,15 +118,15 @@
           <div class="row">
 
             <div class="col-lg-12 my-2">
-               <label for="roll">Member Name<span style="color:red;"> * </span></label>
-               <input type="text" name="teacher_name" id="teacher_name" class="form-control" placeholder="" required>
-               <p class="text-danger error_teacher_name"></p>
+               <label for="roll">Client Name<span style="color:red;"> * </span></label>
+               <input type="text" name="client_name" id="client_name" class="form-control" placeholder="" required>
+               <p class="text-danger error_client_name"></p>
             </div>
 
             <div class="col-lg-12 my-2">
-                <label for="roll">Designation <span style="color:red;"> * </span></label>
-                <input type="text" name="designation" id="designation" class="form-control" placeholder="" required>
-                <p class="text-danger error_designation"></p>
+                <label for="roll">Address <span style="color:red;"> * </span></label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="" required>
+                <p class="text-danger error_address"></p>
             </div>
 
             <div class="col-lg-12 my-2">
@@ -132,46 +136,71 @@
             </div>
 
 
-            <div class="col-lg-12 my-2">
-                 <label for="roll">Phone <span style="color:red;"> * </span></label>
-                 <input type="text" name="phone" id="phone" class="form-control" placeholder="" required>
-                 <p class="text-danger error_phone"></p>
+        <div class="col-lg-12 my-2">
+             <label for="roll">Phone <span style="color:red;"> * </span></label>
+              <input type="text" name="phone" id="phone" class="form-control" placeholder="" required>
+             <p class="text-danger error_phone"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll">Service Info <span style="color:red;"> * </span> </label>
+             <input type="text" name="service_info" id="service_info" class="form-control" placeholder="" required>
+             <p class="text-danger error_service_info"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll">Total Amount <span style="color:red;"> * </span></label>
+             <input type="number" name="total_amount" id="total_amount" class="form-control" placeholder="" required>
+             <p class="text-danger error_total_amount"></p>
+         </div>
+
+
+         <div class="col-lg-12 my-2">
+             <label for="roll">Created date <span style="color:red;"> * </span> </label>
+             <input type="date" name="created_date" id="created_date" class="form-control" placeholder="" required>
+             <p class="text-danger error_created_date"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll">Subcribe Month <span style="color:red;"> * </span> </label>
+             <input type="number" name="subcribe" id="subcribe" class="form-control" placeholder="" required>
+             <p class="text-danger error_subcribe"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+                <label for="roll">Discount amount <span style="color:red;"> * </span> </label>
+                <input type="number" name="discount_amount" id="discount_amount" class="form-control" placeholder="" required >
+                <p class="text-danger error_discount_amount"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+               <label for="roll">Discount Description </label>
+               <input type="text" name="discount_info" id="discount_info" class="form-control" placeholder="" >
+               <p class="text-danger error_discount_info"></p>
+           </div>    
+
+         <div class="col-lg-12 my-2">
+               <label for="roll">Client Info</label>
+               <input type="text" name="client_info" id="client_info" class="form-control" placeholder="" >
+               <p class="text-danger error_client_info"></p>
             </div>
 
-            <div class="col-lg-12 my-2">
-                 <label for="roll">Password <span style="color:red;"> * </span></label>
-                 <input type="text" name="password" id="password" class="form-control" placeholder="" required>
-                 <p class="text-danger error_password"></p>
-              </div>
-
-
-            <div class="col-lg-12 my-2">
-                <label for="roll">Nickname </label>
-                <input type="text" name="nickname" id="nickname" class="form-control" placeholder="" >
-                <p class="text-danger error_nickname"></p>
-            </div>
-
-            <div class="col-lg-12 my-2">
-                <label for="roll">Present address </label>
-                <input type="text" name="present_address" id="present_address" class="form-control" placeholder="" >
-                <p class="text-danger error_present_address"></p>
-            </div>
-
-            <div class="col-lg-12 my-2">
-                <label for="roll">Permanent address </label>
-                <input type="text" name="permanent_address" id="permanent_address" class="form-control" placeholder="" >
-                <p class="text-danger error_permanent_address"></p>
-            </div>
-
-            <div class="col-lg-12 my-2">
-                <label for="roll">Bank details </label>
-                <input type="text" name="bank_details" id="bank_details" class="form-control" placeholder="" >
-                <p class="text-danger error_bank_details"></p>
+         <div class="col-lg-12 my-2">
+               <label for="roll">Client ref</label>
+               <input type="text" name="client_ref" id="client_ref" class="form-control" placeholder="" >
+               <p class="text-danger error_client_ref"></p>
             </div>
 
 
             <div class="col-lg-12 my-2">
-                <label for="roll"> Image (Max:300*300px)</label>
+               <label for="roll">Domain Info </label>
+               <input type="text" name="domain_info" id="domain_info" class="form-control" placeholder="" >
+               <p class="text-danger error_domain_info"></p>
+            </div>    
+
+  
+            <div class="col-lg-12 my-2">
+                <label for="roll"> Document (Max:400KB)</label>
                 <input type="file" name="image" id="image" class="form-control" placeholder="" >
                 <p class="text-danger error_building_image"></p>
             </div>
@@ -222,15 +251,15 @@
 
 
           <div class="col-lg-12 my-2">
-               <label for="roll"> Member Name<span style="color:red;"> * </span></label>
-               <input type="text" name="teacher_name" id="edit_teacher_name" class="form-control" placeholder="" required>
-               <p class="text-danger error_teacher_name"></p>
+               <label for="roll">Client Name<span style="color:red;"> * </span></label>
+               <input type="text" name="client_name" id="edit_client_name" class="form-control" placeholder="" required>
+               <p class="text-danger error_client_name"></p>
             </div>
 
             <div class="col-lg-12 my-2">
-                <label for="roll">Designation <span style="color:red;"> * </span></label>
-                <input type="text" name="designation" id="edit_designation" class="form-control" placeholder="" required>
-                <p class="text-danger error_designation"></p>
+                <label for="roll">Address <span style="color:red;"> * </span></label>
+                <input type="text" name="address" id="edit_address" class="form-control" placeholder="" required>
+                <p class="text-danger error_address"></p>
             </div>
 
             <div class="col-lg-12 my-2">
@@ -240,43 +269,70 @@
             </div>
 
 
-            <div class="col-lg-12 my-2">
-                 <label for="roll">Phone <span style="color:red;"> * </span></label>
-                 <input type="text" name="phone" id="edit_phone" class="form-control" placeholder="" required>
-                 <p class="text-danger error_phone"></p>
+        <div class="col-lg-12 my-2">
+             <label for="roll">Phone <span style="color:red;"> * </span></label>
+              <input type="text" name="phone" id="edit_phone" class="form-control" placeholder="" required>
+             <p class="text-danger error_phone"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll">Service Info <span style="color:red;"> * </span> </label>
+             <input type="text" name="service_info" id="edit_service_info" class="form-control" placeholder="" required>
+             <p class="text-danger error_service_info"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll">Total Amount <span style="color:red;"> * </span></label>
+             <input type="number" name="total_amount" id="edit_total_amount" class="form-control" placeholder="" required>
+             <p class="text-danger error_total_amount"></p>
+         </div>
+
+
+         <div class="col-lg-12 my-2">
+             <label for="roll">Created date <span style="color:red;"> * </span> </label>
+             <input type="date" name="created_date" id="edit_created_date" class="form-control" placeholder="" required>
+             <p class="text-danger error_created_date"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll">Subcribe Month <span style="color:red;"> * </span> </label>
+             <input type="number" name="subcribe" id="edit_subcribe" class="form-control" placeholder="" required>
+             <p class="text-danger error_subcribe"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+                <label for="roll">Discount amount <span style="color:red;"> * </span> </label>
+                <input type="number" name="discount_amount" id="edit_discount_amount" class="form-control" placeholder="" required >
+                <p class="text-danger error_discount_amount"></p>
+         </div>
+
+           <div class="col-lg-12 my-2">
+               <label for="roll">Discount Description </label>
+               <input type="text" name="discount_info" id="edit_discount_info" class="form-control" placeholder="" >
+               <p class="text-danger error_discount_info"></p>
+           </div>    
+
+
+         <div class="col-lg-12 my-2">
+               <label for="roll">Client Info</label>
+               <input type="text" name="client_info" id="edit_client_info" class="form-control" placeholder="" >
+               <p class="text-danger error_client_info"></p>
             </div>
 
-            <div class="col-lg-12 my-2">
-                 <label for="roll">Password <span style="color:red;"> * </span></label>
-                 <input type="text" name="password" id="edit_password" class="form-control" placeholder="" required>
-                 <p class="text-danger error_password"></p>
-              </div>
-
-
-            <div class="col-lg-12 my-2">
-                <label for="roll">Nickname </label>
-                <input type="text" name="nickname" id="edit_nickname" class="form-control" placeholder="" >
-                <p class="text-danger error_nickname"></p>
+         <div class="col-lg-12 my-2">
+               <label for="roll">Client ref</label>
+               <input type="text" name="client_ref" id="edit_client_ref" class="form-control" placeholder="" >
+               <p class="text-danger error_client_ref"></p>
             </div>
 
-            <div class="col-lg-12 my-2">
-                <label for="roll">Present_address </label>
-                <input type="text" name="present_address" id="edit_present_address" class="form-control" placeholder="" >
-                <p class="text-danger error_present_address"></p>
-            </div>
 
             <div class="col-lg-12 my-2">
-                <label for="roll">Permanent address </label>
-                <input type="text" name="permanent_address" id="edit_permanent_address" class="form-control" placeholder="" >
-                <p class="text-danger error_permanent_address"></p>
-            </div>
+               <label for="roll">Domain Info </label>
+               <input type="text" name="domain_info" id="edit_domain_info" class="form-control" placeholder="" >
+               <p class="text-danger error_domain_info"></p>
+            </div>    
 
-            <div class="col-lg-12 my-2">
-                <label for="roll">Bank details </label>
-                <input type="text" name="bank_details" id="edit_bank_details" class="form-control" placeholder="" >
-                <p class="text-danger error_bank_details"></p>
-            </div>
-
+  
 
             <div class="col-lg-12 my-2">
                 <label for="roll"> Image (Max:300*300px)</label>
@@ -287,7 +343,7 @@
  
             <div class="col-lg-6 my-2">
                   <label class=""><b>Manager Status</b></label>
-                    <select class="form-select" name="teacher_status" id="edit_teacher_status" aria-label="Default select example">
+                    <select class="form-select" name="client_status" id="edit_client_status" aria-label="Default select example">
                        <option value="1">Active</option>
                        <option value="0">Inactive</option>
                    </select>
@@ -334,7 +390,7 @@
          function fetchAll(){
             $.ajax({
              type:'GET',
-             url:'/admin/teacher_fetch',
+             url:'/admin/client_fetch',
              datType:'json',
              beforeSend : function()
                {
@@ -354,7 +410,7 @@
         const fd = new FormData(this);
         $.ajax({
           type:'POST',
-          url:'/admin/teacher_store',
+          url:'/admin/client_store',
           data: fd,
           cache: false,
           contentType: false,
@@ -407,22 +463,31 @@
          var id = $(this).val(); 
         $.ajax({
           type:'GET',
-          url:'/admin/teacher_edit',
+          url:'/admin/client_edit',
           data: {
             id: id,
           },
           success: function(response){
               //console.log(response);
-              $("#edit_teacher_name").val(response.data.teacher_name);
+              $("#edit_client_name").val(response.data.client_name);
               $("#edit_email").val(response.data.email );
               $("#edit_phone").val(response.data.phone);
-              $("#edit_nickname").val(response.data.nickname);
-              $("#edit_designation").val(response.data.designation);
-              $("#edit_present_address").val(response.data.present_address);
-              $("#edit_permanent_address").val(response.data.permanent_address);
-              $("#edit_password").val(response.data.password);
-              $("#edit_bank_details").val(response.data.bank_details);
-              $("#edit_teacher_status").val(response.data.teacher_status);
+              $("#edit_address").val(response.data.address);
+              $("#edit_service_info").val(response.data.service_info);
+              $("#edit_total_amount").val(response.data.total_amount);
+              $("#edit_discount_info").val(response.data.discount_info);
+              $("#edit_discount_amount").val(response.data.discount_amount);
+              $("#edit_payment_amount").val(response.data.payment_amount);
+              $("#edit_created_date").val(response.data.created_date);
+              $("#edit_expired_date").val(response.data.expired_date);
+              $("#edit_subcribe").val(response.data.subcribe);
+              $("#edit_payment_duration").val(response.data.payment_duration);
+              $("#edit_domain_info").val(response.data.domain_info);
+              $("#edit_client_status").val(response.data.client_status);
+              $("#edit_client_info").val(response.data.client_info);
+              $("#edit_client_ref").val(response.data.client_ref);
+              //console.log(response);
+
               $("#edit_id").val(response.data.id);
           }
         });
@@ -439,7 +504,7 @@
 
         $.ajax({
           type:'POST',
-          url:'/admin/teacher_update',
+          url:'/admin/client_update',
           data: fd,
           cache: false,
           contentType: false,
@@ -496,7 +561,7 @@
         }).then((result) => {
           if (result.isConfirmed) {
             $.ajax({
-              url:'/admin/teacher_delete',
+              url:'/admin/client_delete',
               method:'delete',
               data: {
                 id: id,
@@ -521,7 +586,7 @@
 
    function fetch_data(page, sort_type="", sort_by="", search="",range=""){
     $.ajax({
-      url:"/admin/teacher/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&search="+search+"&range="+range,
+      url:"/admin/client/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&search="+search+"&range="+range,
      beforeSend : function()
                {
                $('.loader_page').show();

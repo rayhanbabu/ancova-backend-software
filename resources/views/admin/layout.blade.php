@@ -96,11 +96,21 @@
           </nav>
   </div>
 
-
-       <a class="nav-link @yield('teacher')" href="{{url('/admin/teacher_view')}}">
+        <a class="nav-link @yield('teacher')" href="{{url('/admin/teacher_view')}}">
           <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
              Member 
-       </a>
+        </a>
+
+        <a class="nav-link @yield('client')" href="{{url('/admin/client_view')}}">
+           <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+               Client 
+        </a>
+
+        <a class="nav-link @yield('paymentview_select')" href="{{url('/admin/paymentview')}}">
+            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                Payment View 
+        </a>
+
 
        @else
        @endif

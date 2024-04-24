@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Exception;
 
 
+
 class DeptController extends Controller
 {
   

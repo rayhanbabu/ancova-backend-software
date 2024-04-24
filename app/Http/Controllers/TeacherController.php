@@ -12,13 +12,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\TeacherJWTToken;
 use Exception;
-use App\Models\Section;
-use App\Models\Semester;
-use App\Models\Programe;
-use App\Models\Year;
-use App\Models\Course;
-use App\Models\Courseauth;
-use App\Models\Examiner;
 
 
 class TeacherController extends Controller
@@ -382,7 +375,7 @@ class TeacherController extends Controller
          $model->teacher_status=$request->input('teacher_status');
          $model->updated_by=$teacher_id;
 
-         if ($request->hasfile('image')) {
+        if ($request->hasfile('image')) {
             $imgfile = 'booking-';
             $size = $request->file('image')->getsize();
             $file = $_FILES['image']['tmp_name'];
@@ -405,8 +398,8 @@ class TeacherController extends Controller
                ]);
              }
          }
-        
-          $model->update();   
+        $model->update();   
+
            return response()->json([ 
               'status'=>200,
               'message'=>'Data Updated Successfull'
@@ -480,145 +473,6 @@ class TeacherController extends Controller
                   
        }
    }
-
-
-
-
-
-
-   public function teacher_manage(Request $request ,$id)
-          {
-               $dept_id = $request->header('dept_id');
-               $arr=Teacher::where(['id'=>$id])->get();
-
-               
-
-              $result['year']=Year::where('dept_id',$dept_id)->orderBy('id','desc')->get();
-              $result['programe']=Programe::where('dept_id',$dept_id)->orderBy('id','desc')->get();
-              $result['semester']=Semester::where('dept_id',$dept_id)->orderBy('id','desc')->get();    
-
-              if(isset($_GET['semester_id'])){
-                    $result['year_id']=Year::where('dept_id',$dept_id)->where('id',$_GET['year_id'])->orderBy('id','desc')->first();
-                    $result['programe_id']=Programe::where('dept_id',$dept_id)->where('id',$_GET['programe_id'])->orderBy('id','desc')->first();
-                    $result['semester_id']=Semester::where('dept_id',$dept_id)->where('id',$_GET['semester_id'])->orderBy('id','desc')->first();
-                    $result['course']=Course::where('dept_id',$dept_id)->where('programe_id',$_GET['programe_id'])->where('course_status',1)->orderBy('id','desc')->get();
-                    $year=$_GET['year_id'];
-                    $programe=$_GET['programe_id'];
-                    $semester=$_GET['semester_id'];
-
-                }else{
-                    $result['year_id']='';  
-                    $result['programe_id']='';  
-                    $result['semester_id']='';
-                    $result['course']='' ;
-                    $year='';
-                    $programe='';
-                    $semester='';   
-                }
-
-     $data=DB::table('courseauths')->where('dept_id',$dept_id)->where('teacher_id',$arr['0']->id)
-      ->where('year_id',$year)->where('programe_id',$programe)->where('semester_id',$semester)->get();
-
-
-      if($data->count()>0){
-                $result['id']=$arr['0']->id;
-                $result['name']=$arr['0']->teacher_name;
-                $result['nickname']=$arr['0']->nickname;
-                $result['teacherattr']=DB::table('courseauths')->where('dept_id',$dept_id)->where('teacher_id',$arr['0']->id)
-                 ->where('year_id',$_GET['year_id'])->where('programe_id',$_GET['programe_id'])->where('semester_id',$_GET['semester_id'])->get();
-
-              $result['examiner']=Examiner::where('dept_id',$dept_id)->where('examiner_status',1)->orderBy('id','desc')->get();
-              $result['section']=Section::where('dept_id',$dept_id)->where('section_status',1)->orderBy('id','desc')->get();
-                
-              $result['year']=Year::where('dept_id',$dept_id)->where('year_status',1)->orderBy('id','desc')->get();
-              $result['semester']=Semester::where('dept_id',$dept_id)->where('semester_status',1)->orderBy('id','desc')->get();
-              $result['programe']=Programe::where('dept_id',$dept_id)->where('programe_status',1)->orderBy('id','desc')->get();
-
-          }else{
-                  $result['id']=$arr['0']->id;
-                  $result['name']=$arr['0']->teacher_name;
-                  $result['nickname']=$arr['0']->nickname;
-                  $result['teacherattr'][0]['examiner_id']='';
-                  $result['teacherattr'][0]['section_id']='';
-                  $result['teacherattr'][0]['course_id']='';
-                  $result['teacherattr'][0]['id']='';
-                  $result['examiner']=Examiner::where('dept_id',$dept_id)->where('examiner_status',1)->orderBy('id','desc')->get();
-                  $result['section']=Section::where('dept_id',$dept_id)->where('section_status',1)->orderBy('id','desc')->get();
-                
-                  $result['semester']=Semester::where('dept_id',$dept_id)->where('semester_status',1)->orderBy('id','desc')->get();
-                  $result['year']=Year::where('dept_id',$dept_id)->where('year_status',1)->orderBy('id','desc')->get();
-                  $result['programe']=Programe::where('dept_id',$dept_id)->where('programe_status',1)->orderBy('id','desc')->get();
-       
-        }
-
-              
-            
-            return view('teacher.teacher_manage',$result);
-          }
-
-
-
-
-   public function teacher_auth_store(Request $request)
-   {
-
-          $year_id=3;
-          $programe_id=1;
-          $semester_id=5;
-          $dept_id = $request->header('dept_id');
-          $teacher_id = $request->header('id');
-
-          //return $request->all();
-       
-      /* Tecaaher Attribute  Start*/
-          $id=$request->post('id');
-          $year_id=$request->post('year_id');
-          $programe_id=$request->post('programe_id');
-          $semester_id=$request->post('semester_id');
-          $taid=$request->post('taid');
-          $section=$request->post('section');
-          $examiner=$request->post('examiner');
-          $course=$request->post('course');
-         
-        foreach($course as $key=>$val){
-
-            $data=Courseauth::where('dept_id',$dept_id)->where('year_id',$year_id)->where('semester_id',$semester_id)
-            ->where('programe_id',$programe_id)->where('course_id',$course[$key])->where('section_id',$section[$key])
-            ->where('teacher_id',$id)->where('examiner_id',$request->examiner[$key])->first(); 
-
-         if(empty($data)){
-              $teacherattr['dept_id']=$dept_id;
-              $teacherattr['teacher_id']=$id; 
-              $teacherattr['year_id']=$year_id;
-              $teacherattr['programe_id']=$programe_id;
-              $teacherattr['semester_id']=$semester_id;
- 
-              $teacherattr['section_id']=$section[$key]; 
-              $teacherattr['examiner_id']=$examiner[$key]; 
-              $teacherattr['course_id']=$course[$key];  
-                 
-            if($taid[$key]!=''){
-                DB::table('courseauths')->where(['id'=>$taid[$key]])->update($teacherattr);
-             }else{
-                DB::table('courseauths')->insert($teacherattr);
-             }
-            }
-
-         }
-      /* Teacher Attribute End*/
-    
-      return back()->with('success','Data Added Successfully');
-   }
-
-
-   public function teacher_auth_delete(Request $request)
-   {
-       $model=Courseauth::find($request->id);
-       $model->delete();
-       return back()->with('success','Data Deleted Successfully');
-   }
-
-
 
 
 
