@@ -33,7 +33,7 @@ class BackendApiController extends Controller
      public function notice_view(Request $request ,$dept_id,$category){
         $data= Notice::leftjoin('weeks','weeks.id', '=','notices.category')
         ->where('notices.dept_id',$dept_id)->where('notices.category',$category)
-        ->select('weeks.week as category_name','notices.*')->orderby('id','desc')->get();
+        ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
           return response()->json([
               'status'=>'success',
               'data'=>$data 
@@ -44,7 +44,7 @@ class BackendApiController extends Controller
       public function member_view(Request $request ,$dept_id,$category){
         $data= Member::leftjoin('weeks','weeks.id', '=','members.category')
         ->where('members.dept_id',$dept_id)->where('members.category',$category)
-        ->select('weeks.week as category_name','members.*')->orderby('id','desc')->get();
+        ->select('weeks.week as category_name','members.*')->orderby('serial','asc')->orderby('id','desc')->get();
           return response()->json([
                'status'=>'success',
                'data'=>$data 
