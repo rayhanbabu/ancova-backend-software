@@ -52,9 +52,18 @@
                <input type="number" name="serial" id="edit" class="form-control" placeholder="" required>
                <p class="text-danger error_serial"></p>
             </div>
+
+           <div class="col-lg-12 my-2">
+               <select class="form-select" id="category_name" name="category_name" aria-label="Default select example " required>
+                       <option  value="">Select One </option>
+                       <option  value="Event">Event </option>
+                       <option  value="Member">Member </option>
+                       <option  value="Week">Week</option>          
+                </select>
+           </div>
 					
          <div class="col-lg-12 my-2">
-               <label for="roll">week Name<span style="color:red;"> * </span></label>
+               <label for="roll"> Name<span style="color:red;"> * </span></label>
                <input type="text" name="week" id="week" class="form-control" placeholder="" required>
                <p class="text-danger error_week"></p>
          </div>
@@ -106,10 +115,19 @@
           <div class="modal-body p-4 bg-light">
              <div class="row">
 
-             <div class="col-lg-12 my-2">
+          <div class="col-lg-12 my-2">
                <label for="roll">Serial <span style="color:red;"> * </span></label>
                <input type="number" name="serial" id="edit_serial" class="form-control" placeholder="" required>
-               <p class="text-danger edit_error_serial"></p>
+             <p class="text-danger edit_error_serial"></p>
+           </div>
+
+           <div class="col-lg-12 my-2">
+               <select class="form-select" id="edit_category_name" name="category_name" aria-label="Default select example " required>
+                       <option  value="">Select One </option>
+                       <option  value="Event">Event </option>
+                       <option  value="Member">Member </option>
+                       <option  value="Week">Week</option>          
+                </select>
             </div>
 
              <div class="col-lg-12 my-2">
@@ -226,6 +244,7 @@
           success: function(response){
                $("#edit_week").val(response.data.week);
                $("#edit_text").val(response.data.text);
+               $("#edit_category_name").val(response.data.category_name);
                $("#edit_text2").val(response.data.twxt2);
                $("#edit_serial").val(response.data.serial);
                $("#edit_weeksity_established_date").val(response.data.weeksity_established_date);

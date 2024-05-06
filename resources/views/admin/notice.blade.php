@@ -1,12 +1,12 @@
 @extends('admin.layout')
 @section('page_title','Admin Panel')
-@section('notice_select','active')
+@section($category.'_select','active')
 @section('content')
 
   <div class="card mt-3 mb-0"> 
     <div class="card-header ">
     <div class="row ">
-               <div class="col-6"> <h4 class="mt-0">News & Event</h4></div>
+               <div class="col-6"> <h4 class="mt-0">{{$category_name->week}}</h4></div>
                      <div class="col-3">
                          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             
@@ -14,7 +14,7 @@
                      </div>
                      <div class="col-3">
                          <div class="d-grid gap-2 d-md-flex ">
-                         <a class="btn btn-primary" href="{{url('/admin/notice_create')}}" role="button">Add</a>
+                         <a class="btn btn-primary" href="{{url('/admin/notice_create/'.$category)}}" role="button">Add</a>
               </div>
         </div> 
  </div> 
@@ -62,11 +62,12 @@
     <tr>
          <th width="10%" class="sorting" data-sorting_type="asc" data-column_name="date" style="cursor: pointer">Date 
                 <span id="date_icon" ><i class="fas fa-sort-amount-up-alt"></i></span> </th>
-        <th width="20%" class="sorting" data-sorting_type="asc" data-column_name="category" style="cursor: pointer">Category
-                  <span id="category_icon"><i class="fas fa-sort-amount-up-alt"></span></th>
+       
          <th width="30%" class="sorting" data-sorting_type="asc" data-column_name="title" style="cursor: pointer">Title
             <span id="title_icon"><i class="fas fa-sort-amount-up-alt"></span></th>          
        
+            <th width="20%" class="sorting" data-sorting_type="asc" data-column_name="short_desc" style="cursor: pointer">Short Description
+                  <span id="short_desc_icon"><i class="fas fa-sort-amount-up-alt"></span></th>
             <th  width="10%">Image</th>
 		      <th  width="10%">View</th>
 		      <th  width="10%"></th>
@@ -117,7 +118,7 @@ $(document).ready(function(){
          function fetch(){
             $.ajax({
              type:'GET',
-             url:'/admin/notice_fetch',
+             url:'/admin/notice_fetch/{{$category}}',
              datType:'json',
              success:function(response){
                     $('tbody').html('');
@@ -132,7 +133,7 @@ $(document).ready(function(){
 
     function fetch_data(page, sort_type="", sort_by="", search=""){
         $.ajax({
-        url:"/admin/notice/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&search="+search,
+        url:"/admin/notice/fetch_data/{{$category}}?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&search="+search,
         success:function(data)
         {
         $('tbody').html('');
@@ -192,9 +193,6 @@ $(document).ready(function(){
 </script>   
   
 
-
-
- 
 
 
 

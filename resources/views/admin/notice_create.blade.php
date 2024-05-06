@@ -2,9 +2,8 @@
 @section('page_title','Admin Panel')
 @section('notice_select','active')
 @section('content')
-
 <div class="row mt-4 mb-3">
-               <div class="col-6"> <h4 class="mt-0"> News & Event Create </h4></div>
+               <div class="col-6"> <h4 class="mt-0">  {{$category_name->week}} Create  Form</h4></div>
                      <div class="col-3">
                          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             
@@ -12,7 +11,7 @@
                      </div>
                      <div class="col-3">
                          <div class="d-grid gap-2 d-md-flex ">
-                         <a class="btn btn-primary" href="{{url('/admin/notice')}}" role="button">Back</a>  
+                         <a class="btn btn-primary" href="{{url('/admin/notice/'.$category)}}" role="button">Back</a>  
               </div>
         </div> 
  </div> 
@@ -44,25 +43,15 @@
         @csrf
   
       <div class="row">
-          <div class="col-sm-4 my-2">
+          <div class="col-sm-6 my-2">
             <label for="name">Date<span style="color:red;"> * </span></label>
             <input type="date" name="date" id="date" class="form-control" value="{{ old('date') }}"  required>
           </div>
 
-          <div class="col-sm-4 my-2">
-             <label for="lname">Category<span style="color:red;"> * </span></label>
-                 <select class="form-select" name="category" id="category"  aria-label="Default select example"  required >
-                      <option value="Service">Service</option>
-                      <option value="Project">Project</option>
-                      <option value="Highlight">Highlight</option>
-                      <option value="Vision">Vision</option>
-                      <option value="About">About</option>
-                      <option value="Testimonial">Testimonial</option>
-                      <option value="Title">Title</option>
-                 </select>
-          </div>
+          <input type="hidden" name="category" id="category"  value="{{ $category }}" >
+          
 
-          <div class="col-sm-4 my-2">
+          <div class="col-sm-6 my-2">
               <label for="image">Image Optional (Max Size:400KB)</label>
               <input type="file" name="image"  class="form-control" >
           </div>
@@ -106,8 +95,5 @@
 
 
   
-
-
-
 
  @endsection             

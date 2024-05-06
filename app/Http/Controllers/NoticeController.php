@@ -6,6 +6,7 @@ use App\Models\Notice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use App\Models\Week;
 
 use Cookie;
 use Session;
@@ -14,19 +15,20 @@ use Illuminate\Support\Str;
 
 class NoticeController extends Controller
 {
-    public function index(){
-        return view('admin.notice');
+    public function index($category){
+      $category_name=Week::where('category_name','Event')->where('id',$category)->orderby('serial','asc')->first();
+        return view('admin.notice',['category' => $category,'category_name' => $category_name]);
     }
 
-    public function fetch(Request $request){
+    public function fetch(Request $request ,$category){
        $dept_id = $request->header('dept_id');
        $teacher_id = $request->header('id');
-        $data=DB::table('notices')->where('dept_id',$dept_id)->orderBy('id','desc')->paginate(10);
+        $data=DB::table('notices')->where('dept_id',$dept_id)->where('category',$category)->orderBy('id','desc')->paginate(10);
           return view('admin.notice_data',compact('data'));
        
      }
 
-    function fetch_data(Request $request)
+    function fetch_data(Request $request,$category)
     {
        $dept_id = $request->header('dept_id');
        $teacher_id = $request->header('id');
@@ -38,6 +40,7 @@ class NoticeController extends Controller
              $search = $request->get('search');
              $search = str_replace(" ", "%", $search);
          $data=DB::table('notices')->where('dept_id',$dept_id)
+                 ->where('category',$category)
            ->where(function($query) use ($search) {
               $query->orWhere('title', 'like', '%'.$search.'%');
               $query->orWhere('text', 'like', '%'.$search.'%');
@@ -50,9 +53,10 @@ class NoticeController extends Controller
      }
 
 
-    public function notice_create (Request $request)
+    public function notice_create (Request $request,$category)
       {
-        return view('admin.notice_create');
+        $category_name=Week::where('category_name','Event')->where('id',$category)->orderby('serial','asc')->first();
+        return view('admin.notice_create',['category'=>$category,'category_name'=>$category_name]);
       }
 
 
@@ -90,17 +94,19 @@ class NoticeController extends Controller
      }
 
 
-     public function view(Request $request ,$id)
+     public function view(Request $request ,$id,$category)
       {
          $data = Notice::find($id);
-         return view('admin.notice_view',['data'=>$data]);
+         $category_name=Week::where('category_name','Event')->where('id',$category)->orderby('serial','asc')->first();
+         return view('admin.notice_view',['data'=>$data,'category'=>$category,'category_name'=>$category_name]);
       }
 
 
-     public function edit(Request $request ,$id)
+     public function edit(Request $request ,$id,$category)
      {
          $data = Notice::find($id);
-         return view('admin.notice_edit',compact('data'));
+         $category_name=Week::where('category_name','Event')->where('id',$category)->orderby('serial','asc')->first();
+         return view('admin.notice_edit',['data'=>$data,'category'=>$category,'category_name'=>$category_name]);
      }
 
      public function update(Request $request, $id)
@@ -136,15 +142,15 @@ class NoticeController extends Controller
    }
 
 
-   public function destroy(Request $request,$id)
+   public function destroy(Request $request,$id,$category)
    {
        $post = Notice::find($id);  
        $path=public_path('uploads/admin/').$post->image;
-       if(File::exists($path)){
-        File::delete($path);
+        if(File::exists($path)){
+          File::delete($path);
         }
        $post->delete();
-       return redirect('/admin/notice')->with('success','Data Deleted  successfully');
+       return redirect('/admin/notice/'.$category)->with('success','Data Deleted  successfully');
 
    }
 

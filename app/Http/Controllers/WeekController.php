@@ -39,7 +39,7 @@ class WeekController extends Controller
                  
              $model= new Week;
              $model->week=$request->input('week');
-             $model->category_name='Week';
+             $model->category_name=$request->input('category_name');  
              $model->serial=$request->input('serial');
              if($request->hasfile('image')){
                 $imgfile='maintain-';
@@ -91,9 +91,11 @@ class WeekController extends Controller
            $output .= '<table class="table table-bordered table-sm text-start align-middle">
            <thead>
               <tr>
+                <th>Id </th>
+                <th>Category Name </th>
                 <th>Serial </th>
                 <th>Image </th>
-                <th>week </th>
+                <th>Name </th>
                 <th>Action </th>
               </tr>
            </thead>
@@ -101,6 +103,8 @@ class WeekController extends Controller
            foreach ($data as $row){
             if(!$row->image){$image="";}else{$image='<i class="fa fa-download"></i>';}
              $output .= '<tr>
+                 <td>'.$row->id.'</td>
+                 <td>'.$row->category_name.'</td>
                 <td>'.$row->serial.'</td>
                 <td> <a href=/uploads/'.$row->image.' download id="' . $row->id . '" class="text-success mx-1">'.$image.' </a></td>
                 <td>'.$row->week.'</td>
@@ -147,7 +151,9 @@ class WeekController extends Controller
         $model=Week::find($request->input('edit_id'));
         if($model){
             $model->week=$request->input('week');  
+            $model->category_name=$request->input('category_name');  
             $model->serial=$request->input('serial');
+          
             if($request->hasfile('image')){
               $imgfile='maintain-';
               $size = $request->file('image')->getsize(); 
@@ -197,10 +203,10 @@ class WeekController extends Controller
       public function delete(Request $request) { 
              $model=Week::find($request->input('id'));
              $path=public_path('uploads/'.$model->image);
-             if(File::exists($path)){
-                   File::delete($path);
-              }
-              $model->delete();
+            //  if(File::exists($path)){
+            //        File::delete($path);
+            //   }
+            //   $model->delete();
               return response()->json([
                  'status'=>200,  
                  'message'=>'Data Deleted Successfully',

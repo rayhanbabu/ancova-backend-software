@@ -1,21 +1,22 @@
-@extends('maintain.layout')
-@section('page_title','Maintain Panel')
-@section('hall','active')
+@extends('admin.layout')
+@section('page_title','Admin Panel')
+@section('member','active')
 @section('content')
 
- <div class="row mt-3 mb-0 mx-2">
-                <div class="col-sm-3 my-2"> <h5 class="mt-0">Department store  View </h5></div>
-                     
-                 <div class="col-sm-3 my-2">
-                 <div class="d-grid gap-2 d-flex justify-content-end"> 
-                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Add</button>  
-                </div>    
-                </div>
+<div class="card mt-3 mb-0"> 
+   <div class="card-header ">
+      <div class="row">
+                 <div class="col-sm-3 my-2"> <h5 class="mt-0">{{$category_name->week}} </h5></div>
+                  <div class="col-sm-3 my-2">
+                     <div class="d-grid gap-2 d-flex justify-content-end"> 
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Add</button>  
+                     </div>    
+                  </div>
 
                 <div class="col-sm-6 my-2 ">
-                 <div class="d-grid gap-3 d-flex justify-content-end">
+                    <div class="d-grid gap-3 d-flex justify-content-end">
                    
-                 </div>
+                    </div>
                 </div>
 
                 @if(Session::has('success'))
@@ -27,17 +28,20 @@
                   @endif
     </div>             
 
+    </div>
+      
+  <div class="card-body">
 
-    <div class="row my-2 ">
-      <div class="col-md-3 p-2">
-            <select class="form-select form-select-sm" id="range" name="range" aria-label="Default select example " required>
-                   <option  value="10">10 </option>
-                   <option  value="20">20 </option>
-                   <option  value="50">50 </option>
-                   <option  value="100">100 </option>
-             </select>             
-      </div> 
-      <div class="col-md-6">   </div>       
+    <div class="row">
+        <div class="col-md-3">
+              <select class="form-select form-select-sm" id="range" name="range" aria-label="Default select example " required>
+                    <option  value="10">10 </option>
+                    <option  value="20">20 </option>
+                    <option  value="50">50 </option>
+                    <option  value="100">100 </option>
+              </select>             
+        </div> 
+       <div class="col-md-6"> </div>       
             
     <div class="col-md-3 p-2">
      <div class="form-group">
@@ -46,23 +50,29 @@
     </div>
    </div>
    <div id="success_message"></div>
+
+
 				
-<div class="overflow">		
+<div class="table-responsive">		
 <div class="x_content">
  <table id="employee_data"  class="table table-bordered table-hover table-sm shadow">
     <thead>
        <tr>
-           <th  width="10%">Location </th>
-           <th width="25%" class="sorting" data-sorting_type="asc" data-column_name="dept_name" style="cursor: pointer">Department store
-                   <span id="dept_name_icon" ><i class="fas fa-sort-amount-up-alt"></i></span></th>
-           <th  width="10%">Address</th>
-           <th  width="10%">Email</th>
-           <th  width="10%">Phone</th>
-           <th  width="10%">Password</th>
-           <th  width="10%">Login Code</th>
-           <th  width="10%">Status</th>
-		       <th  width="10%"></th>
-		       <th  width="10%"></th>
+          <th  width="10%"> Image</th>
+          <th width="25%" class="sorting" data-sorting_type="asc" data-column_name="collor_name" style="cursor: pointer"> Name 
+                <span id="collor_name_icon" ><i class="fas fa-sort-amount-up-alt"></i></span> </th>
+          <th  width="20%"> Designation</th>
+          <th  width="20%"> Phone</th>
+          <th  width="10%"> </th>
+		      <th  width="10%"> </th>
+          <th  width="10%"> </th>
+          <th  width="20%"> Web link</th>
+          <th  width="20%"> Email</th>
+          <th  width="20%"> From date</th>
+          <th  width="20%"> To date </th>
+          <th  width="20%"> Others </th>
+         
+       
       </tr>
 
        <tr>
@@ -80,10 +90,11 @@
   </table>
        
     <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
-    <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="dept_name" />
+    <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="id" />
     <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="desc" />
  
  
+</div>
 </div>
 </div>
 
@@ -103,58 +114,69 @@
         <div class="modal-body p-4 bg-light">
           <div class="row">
 
-          @if($role=="supperadmin")
-          <div class="col-lg-12 my-2">
-              <select class="form-select" id="university_id" name="university_id" aria-label="Default select example " required>
-                       <option  value="">Select One </option>
-                        @foreach($data as $row)
-                            <option   value="{{$row->id}}">{{$row->university}}</option>
-                        @endforeach  
-               </select>
-           </div>
-           @else
-
-           @endif
+             <input type="hidden" name="category" value="{{$category}}">
 
             <div class="col-lg-12 my-2">
-               <label for="roll">Dept store Name<span style="color:red;"> * </span></label>
-               <input type="text" name="dept_name" id="dept_name" class="form-control" placeholder="" required>
-               <p class="text-danger error_hall"></p>
+               <label for="roll">Name<span style="color:red;"> * </span></label>
+               <input type="text" name="name" id="name" class="form-control" placeholder="" required>
+               <p class="text-danger error_name"></p>
             </div>
 
             <div class="col-lg-12 my-2">
-                <label for="roll"> Dept store Address <span style="color:red;"> * </span></label>
-                <input type="text" name="dept_address" id="dept_address" class="form-control" placeholder="" required>
-            </div>
-
-            
-               
-                <input type="hidden" name="dept_code" id="dept_code" class="form-control" placeholder="" >
-                <input type="hidden" name="established_date" id="established_date" class="form-control" placeholder="" >
-                <input type="hidden" name="faculty" id="faculty" class="form-control" placeholder="" >
-         
-
-            <div class="col-lg-12 my-2">
-                <label for="roll">E-mail <span style="color:red;"> * </span></label>
-                <input type="text" name="email" id="email" class="form-control" placeholder="" required>
-                <p class="text-danger error_email"></p>
+                <label for="roll">Designation <span style="color:red;"> * </span> </span></label>
+                <input type="text" name="designation" id="designation" class="form-control" placeholder="" required>
+                <p class="text-danger error_designation"></p>
             </div>
 
             <div class="col-lg-12 my-2">
-                <label for="roll">Phone Number <span style="color:red;"> * </span></label>
-                <input type="text" name="phone" id="phone" class="form-control" placeholder="" required>
-                <p class="text-danger error_phone"></p>
+                <label for="roll">Email  </span></label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="" >
+                <p class="text-danger error_designation"></p>
             </div>
 
             <div class="col-lg-12 my-2">
-                <label for="roll">Password <span style="color:red;"> * </span></label>
-                <input type="text" name="password" id="password" class="form-control" placeholder="" required>
-                <p class="text-danger error_password"></p>
+                <label for="roll">Phone  </span></label>
+                <input type="text" name="phone" id="phone" class="form-control" placeholder="" >
+                <p class="text-danger error_designation"></p>
             </div>
 
-           
+            <div class="col-lg-12 my-2">
+                <label for="roll">Web Link  </span></label>
+                <input type="text" name="web_link" id="web_link" class="form-control" placeholder="" >
+                <p class="text-danger error_web_link"></p>
+            </div>
 
-            <ul id="add_errorlist"> </ul>
+            <div class="col-lg-12 my-2">
+                <label for="roll"> Form date   </span></label>
+                <input type="text" name="date1" id="date1" class="form-control" placeholder="" >
+                <p class="text-danger error_date1"></p>
+            </div>
+
+
+            <div class="col-lg-12 my-2">
+                <label for="roll"> To date   </span></label>
+                <input type="text" name="date2" id="date2" class="form-control" placeholder="" >
+                <p class="text-danger error_date2"></p>
+            </div>
+
+
+            <div class="col-lg-12 my-2">
+                <label for="roll"> Others  </span></label>
+                <input type="text" name="others" id="others" class="form-control" placeholder="" >
+                <p class="text-danger error_others"></p>
+            </div>
+
+
+
+            <div class="col-lg-12 my-2">
+                <label for="roll"> Image (Max:300KB)</label>
+                <input type="file" name="image" id="image" class="form-control" placeholder="" >
+                <p class="text-danger error_building_image"></p>
+            </div>
+
+        
+
+            <ul class="alert alert-warning d-none" id="add_errorlist"></ul>
 
             
           </div>    
@@ -186,107 +208,88 @@
   data-bs-backdrop="static" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-       </div>
-       <form  method="POST" id="edit_employee_form" enctype="multipart/form-data">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form  method="POST" id="edit_employee_form" enctype="multipart/form-data">
+     
+         <div class="modal-body p-4 bg-light">
+          <div class="row">
           <input type="hidden" name="edit_id" id="edit_id">
-          <input type="hidden" name="teacher_id" id="edit_teacher_id">
-          <div class="modal-body p-4 bg-light">
-            <div class="row">
 
-            @if($role=="supperadmin")
-          <div class="col-lg-12 my-2">
-              <select class="form-select" id="edit_university_id" name="university_id" aria-label="Default select example " required>
-                       <option  value="">Select One </option>
-                        @foreach($data as $row)
-                            <option   value="{{$row->id}}">{{$row->university}}</option>
-                        @endforeach  
-               </select>
-           </div>
-           @else
-           
-           @endif
 
-         <div class="col-lg-12 my-2">
-              <label for="roll">Dept store Name<span style="color:red;"> * </span></label>
-              <input type="text" name="dept_name" id="edit_dept_name" class="form-control" placeholder="" required>
-             <p class="text-danger edit_error_dept_name"></p>
-           </div>
+          <input type="hidden" name="category" value="{{$category}}">
 
-          <div class="col-lg-12 my-2">
-                <label for="roll">Dept store Address<span style="color:red;"> * </span></label>
-                <input type="text" name="dept_address" id="edit_dept_address" class="form-control" placeholder="" required>
-                <p class="text-danger edit_error_dept_address"></p>
-           </div>
+<div class="col-lg-12 my-2">
+   <label for="roll">Name<span style="color:red;"> * </span></label>
+   <input type="text" name="name" id="edit_name" class="form-control" placeholder="" required>
+   <p class="text-danger error_name"></p>
+</div>
 
-         
-                <input type="hidden" name="dept_code" id="edit_dept_code" class="form-control">
-                <input type="hidden" name="faculty" id="edit_faculty" class="form-control" placeholder="" >
-                <input type="hidden" name="established_date" id="edit_established_date" class="form-control" >
-             
-           
-           <div class="col-lg-12 my-2">
-                <label for="roll">E-mail <span style="color:red;"> * </span></label>
-                <input type="text" name="email" id="edit_email" class="form-control" placeholder="" required>
-            </div>
+<div class="col-lg-12 my-2">
+    <label for="roll">Designation <span style="color:red;"> * </span> </span></label>
+    <input type="text" name="designation" id="edit_designation" class="form-control" placeholder="" required>
+    <p class="text-danger error_designation"></p>
+</div>
+
+<div class="col-lg-12 my-2">
+    <label for="roll">Email  </span></label>
+    <input type="text" name="email" id="edit_email" class="form-control" placeholder="" >
+    <p class="text-danger error_designation"></p>
+</div>
+
+<div class="col-lg-12 my-2">
+    <label for="roll">Phone  </span></label>
+    <input type="text" name="phone" id="edit_phone" class="form-control" placeholder="" >
+    <p class="text-danger error_designation"></p>
+</div>
+
+<div class="col-lg-12 my-2">
+    <label for="roll">Web Link  </span></label>
+    <input type="text" name="web_link" id="edit_web_link" class="form-control" placeholder="" >
+    <p class="text-danger error_web_link"></p>
+</div>
+
+<div class="col-lg-12 my-2">
+    <label for="roll"> Form date   </span></label>
+    <input type="text" name="date1" id="edit_date1" class="form-control" placeholder="" >
+    <p class="text-danger error_date1"></p>
+</div>
+
+
+<div class="col-lg-12 my-2">
+    <label for="roll"> To date   </span></label>
+    <input type="text" name="date2" id="edit_date2" class="form-control" placeholder="" >
+    <p class="text-danger error_date2"></p>
+</div>
+
+
+<div class="col-lg-12 my-2">
+    <label for="roll"> Others  </span></label>
+    <input type="text" name="others" id="edit_others" class="form-control" placeholder="" >
+    <p class="text-danger error_others"></p>
+</div>
+
+
+
 
             <div class="col-lg-12 my-2">
-                 <label for="roll">Phone Number <span style="color:red;"> * </span></label>
-                 <input type="text" name="phone" id="edit_phone" class="form-control" placeholder="" required>
+                <label for="roll"> Image (Max:300KB)</label>
+                <input type="file" name="image" id="image" class="form-control" placeholder="" >
+                <p class="text-danger error_building_image"></p>
             </div>
 
+ 
             <div class="col-lg-6 my-2">
-                <label for="roll">Password <span style="color:red;"> * </span></label>
-                <input type="text" name="password" id="edit_password" class="form-control" placeholder="" required>
-                <p class="text-danger error_password"></p>
+                  <label class=""><b> Status</b></label>
+                    <select class="form-select" name="status" id="edit_status" aria-label="Default select example">
+                       <option value="1">Active</option>
+                       <option value="0">Inactive</option>
+                   </select>
             </div>
 
-
-             <div class="col-lg-6 my-2">
-             <label class="">Teacher Status <span style="color:red;"> * </span></label>
-                <select class="form-control mb-2" id="edit_teacher_status" name="teacher_status" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                </select>
-              </div>
-
-           <div class="col-lg-6 my-1">   
-              <label class="">Payment Status <span style="color:red;"> * </span></label>
-                <select class="form-control mb-2" id="edit_payment" name="payment" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                </select>
-              </div>
-
-
-              <div class="col-lg-6 my-1">   
-              <label class="">Member Status <span style="color:red;"> * </span></label>
-                <select class="form-control mb-2" id="edit_member" name="member" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                </select>
-              </div>
-
-
-              <div class="col-lg-6 my-1">   
-              <label class="">Event Status <span style="color:red;"> * </span></label>
-                <select class="form-control mb-2" id="edit_event" name="event" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                </select>
-              </div>
-
-             <div class="col-lg-6 my-1">   
-              <label class="">teacher Status <span style="color:red;"> * </span></label>
-                <select class="form-control mb-2" id="edit_teacher" name="teacher" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                </select>
-              </div>
-         
-            <ul id="edit_errorlist"> </ul>
+            <ul class="alert alert-warning d-none" id="edit_form_errlist"></ul>
          
 
          </div>
@@ -317,27 +320,26 @@
 
 
 
-
-
-
 <script>  
   $(document).ready(function(){ 
+
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
 
-        fetchAll();
+    
+         fetchAll();
          function fetchAll(){
             $.ajax({
              type:'GET',
-             url:'/maintain/dept_fetch',
+             url:'/admin/member_fetch/{{$category}}',
              datType:'json',
              beforeSend : function()
                {
                $('.loader_page').show();
                },
-             success:function(response){
+              success:function(response){
                     $('tbody').html('');
-                   $('.x_content tbody').html(response);
-                   $('.loader_page').hide();
+                    $('.x_content tbody').html(response);
+                    $('.loader_page').hide();
                 }
             });
          }
@@ -348,7 +350,7 @@
         const fd = new FormData(this);
         $.ajax({
           type:'POST',
-          url:'/maintain/dept_store',
+          url:'/admin/member_store',
           data: fd,
           cache: false,
           contentType: false,
@@ -370,7 +372,7 @@
                $('#success_message').text(response.message);
                $('.error_hall').text('');
                $('#add_errorlist').html("");
-               $('#add_errorlist').addClass('');
+               $('#add_errorlist').addClass("d-none");
               
                fetchAll();
               }else if(response.status == 400){
@@ -379,7 +381,7 @@
                 Swal.fire("Warning",response.message,"warning");
               }else if(response.status == 700){
                     $('#add_errorlist').html("");
-                    $('#add_errorlist').addClass('alert alert-danger');
+                    $('#add_errorlist').removeClass('d-none');
                     $.each(response.message,function(key,err_values){ 
                     $('#add_errorlist').append('<li>'+err_values+'</li>');
                     });     
@@ -401,30 +403,22 @@
          var id = $(this).val(); 
         $.ajax({
           type:'GET',
-          url:'/maintain/dept_edit',
+          url:'/admin/member_edit',
           data: {
             id: id,
           },
           success: function(response){
-              console.log(response);
-              $("#edit_dept_name").val(response.data.dept_name);
-              $("#edit_university_id").val(response.data.university_id);
+              //console.log(response);
+              $("#edit_name").val(response.data.name);
+              $("#edit_designation").val(response.data.designation);
               $("#edit_email").val(response.data.email);
               $("#edit_phone").val(response.data.phone);
-              $("#edit_password").val(response.data.password);
-              $("#edit_teacher_status").val(response.data.teacher_status);
-              $("#edit_dept_address").val(response.data.dept_address);
-              $("#edit_dept_code").val(response.data.dept_code);
-              $("#edit_faculty").val(response.data.faculty); 
-              $("#edit_member").val(response.data.member); 
-              $("#edit_teacher").val(response.data.teacher); 
-              $("#edit_event").val(response.data.event); 
-              $("#edit_payment").val(response.data.payment); 
-              $("#edit_established_date").val(response.data.established_date); 
-            
-              
+              $("#edit_date1").val(response.data.date1);
+              $("#edit_date2").val(response.data.date2);
+              $("#edit_others").val(response.data.others);
+              $("#edit_web_link").val(response.data.web_link);
+              $("#edit_status").val(response.data.status);
               $("#edit_id").val(response.data.id);
-              $("#edit_teacher_id").val(response.data.teacher_id);
           }
         });
       });
@@ -440,7 +434,7 @@
 
         $.ajax({
           type:'POST',
-          url:'/maintain/dept_update',
+          url:'/admin/member_update',
           data: fd,
           cache: false,
           contentType: false,
@@ -457,21 +451,20 @@
                $('#success_message').text(response.message);
                $("#edit_employee_form")[0].reset();
                $("#editEmployeeModal").modal('hide');
-               $('#edit_errorlist').html("");
-               $('#edit_errorlist').addClass('');
+               $('#edit_form_errlist').html("");
+               $('#edit_form_errlist').addClass('d-none');
                fetchAll();
              }else if(response.status == 400){
                  Swal.fire("Warning",response.message, "warning");
              }else if(response.status == 300){
                  Swal.fire("Warning",response.message, "warning");
              }else if(response.status == 700){
-                    $('#edit_errorlist').html("");
-                    $('#edit_errorlist').addClass('alert alert-danger');
-                    $.each(response.message,function(key,err_values){ 
-                    $('#edit_errorlist').append('<li>'+err_values+'</li>');
-                    });     
+                     $('#edit_form_errlist').html("");
+                     $('#edit_form_errlist').removeClass('d-none');
+                        $.each(response.message, function(key, err_values) {
+                        $('#edit_form_errlist').append('<li>' + err_values + '</li>');
+                     });
               }
-          
             $('.loader').hide();
           }
          
@@ -485,9 +478,10 @@
         $(document).on('click', '.deleteIcon', function(e) {
         e.preventDefault();
         var id = $(this).val(); 
+        console.log(id);
         Swal.fire({
           title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          text: "You want to delete this item!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -496,8 +490,8 @@
         }).then((result) => {
           if (result.isConfirmed) {
             $.ajax({
-              url:'/maintain/dept_delete',
-              method: 'delete',
+              url:'/admin/member_delete',
+              method:'delete',
               data: {
                 id: id,
               },
@@ -519,10 +513,10 @@
 
 
 
-      function fetch_data(page, sort_type="", sort_by="", search="",range=""){
+   function fetch_data(page, sort_type="", sort_by="", search="",range=""){
     $.ajax({
-    url:"/maintain/dept/fetch_data?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&search="+search+"&range="+range,
-    beforeSend : function()
+      url:"/admin/member/fetch_data/{{$category}}?page="+page+"&sortby="+sort_by+"&sorttype="+sort_type+"&search="+search+"&range="+range,
+     beforeSend : function()
                {
                $('.loader_page').show();
                },
@@ -607,11 +601,6 @@ $(document).on('keyup', '#search', function(){
 
 </script>
 
-
-
-
-
- 
 
 
  

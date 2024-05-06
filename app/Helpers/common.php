@@ -55,12 +55,30 @@
         }
 
 
+        function member_category(){      
+            $data=Week::where('category_name','Member')->orderby('serial','asc')->get();
+            return $data;
+        }
+     
+       function event_category(){      
+            $data=Week::where('category_name','Event')->orderby('serial','asc')->get();
+            return $data;
+        }
+
         
         function teacher_info(){
             $teacher_info=Cookie::get('teacher_info');
             $result=unserialize($teacher_info);
             return $result;
         }
+
+        function teacher_access(){
+            $token_teacher=Cookie::get('token_teacher');
+            $result=TeacherJWTToken::ReadToken($token_teacher);
+            $teacher_access = Teacher::where('dept_id',$result->dept_id)->where('role','admin')
+            ->select('teacher','member','payment','event')->first();
+            return $teacher_access;
+     }
 
 
         function adminaccess(){
@@ -82,6 +100,8 @@
           $category=DB::table('programes')->where('dept_id',$result->dept_id)->get();
           return $category;
    }
+
+
 
    function exam_category(){
     $token_teacher=Cookie::get('token_teacher');

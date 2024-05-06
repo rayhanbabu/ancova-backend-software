@@ -12,6 +12,7 @@ use App\Http\Controllers\CollorController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -132,19 +133,25 @@ use App\Http\Controllers\InvoiceController;
             Route::post('/admin/collor_update',[CollorController::class,'collor_update']);
             Route::delete('/admin/collor_delete',[CollorController::class,'collor_delete']);
 
+            Route::get('/admin/member_view/{category}',[MemberController::class,'member_view']);
+            Route::get('/admin/member_fetch/{category}',[MemberController::class,'fetch']);
+            Route::get('/admin/member/fetch_data/{category}',[MemberController::class,'fetch_data']);
+            Route::post('/admin/member_store',[MemberController::class,'store']);
+            Route::get('/admin/member_edit',[MemberController::class,'member_edit']);
+            Route::post('/admin/member_update',[MemberController::class,'member_update']);
+            Route::delete('/admin/member_delete',[MemberController::class,'member_delete']);
 
          // Notice 
-         Route::get('/admin/notice',[NoticeController::class,'index']);
-         Route::get('/admin/notice_fetch',[NoticeController::class,'fetch']);
-         Route::get('/admin/notice/fetch_data',[NoticeController::class,'fetch_data']); 
-     
-         Route::get('/admin/notice_create',[NoticeController::class,'notice_create']);
-         Route::post('/admin/notice_insert',[NoticeController::class,'store']); 
-         Route::get('/admin/notice_view/{id}',[NoticeController::class,'view']);
-         Route::get('/admin/notice_edit/{id}',[NoticeController::class,'edit']);
-         Route::post('/admin/notice_update/{id}',[NoticeController::class,'update']);
-         Route::get('/admin/notice_delete/{id}',[NoticeController::class,'destroy']);
+        Route::get('/admin/notice/{category}',[NoticeController::class,'index']);
+        Route::get('/admin/notice_fetch/{category}',[NoticeController::class,'fetch']);
+        Route::get('/admin/notice/fetch_data/{category}',[NoticeController::class,'fetch_data']); 
 
+        Route::get('/admin/notice_create/{category}',[NoticeController::class,'notice_create']);
+        Route::post('/admin/notice_insert',[NoticeController::class,'store']); 
+        Route::get('/admin/notice_view/{id}/{category}',[NoticeController::class,'view']);
+        Route::get('/admin/notice_edit/{id}/{category}',[NoticeController::class,'edit']);
+        Route::post('/admin/notice_update/{id}',[NoticeController::class,'update']);
+        Route::get('/admin/notice_delete/{id}/{category}',[NoticeController::class,'destroy']);
 
             //Client  create
             Route::get('/admin/client_view',[ClientController::class,'client_view']);

@@ -89,7 +89,8 @@ class DeptController extends Controller
          ->where('teachers.role','admin')->where('depts.id',$id)
          ->select('univers.university','depts.*','teachers.email','teachers.phone'
          ,'teachers.role','teachers.id as teacher_id','teachers.password'
-         ,'teachers.teacher_status','teachers.login_code')->first();
+         ,'teachers.teacher_status','teachers.login_code' ,'teachers.teacher'
+         ,'teachers.member','teachers.event','teachers.payment')->first();
           return response()->json([
              'status'=>200,  
               'data'=>$data,
@@ -143,6 +144,10 @@ class DeptController extends Controller
             $teacher->phone =$request->input('phone');
             $teacher->password =$request->input('password');
             $teacher->teacher_status =$request->input('teacher_status');
+            $teacher->teacher =$request->input('teacher');
+            $teacher->event =$request->input('event');
+            $teacher->member =$request->input('member');
+            $teacher->payment =$request->input('payment');
             $teacher->created_by=$maintain_id;
             $teacher->update(); 
            }
