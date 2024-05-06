@@ -62,8 +62,11 @@
     <tr>
          <th width="10%" class="sorting" data-sorting_type="asc" data-column_name="date" style="cursor: pointer">Date 
                 <span id="date_icon" ><i class="fas fa-sort-amount-up-alt"></i></span> </th>
-       
-         <th width="30%" class="sorting" data-sorting_type="asc" data-column_name="title" style="cursor: pointer">Title
+          
+            <th width="10%" class="sorting" data-sorting_type="asc" data-column_name="serial" style="cursor: pointer">Serial
+            <span id="serial_icon"><i class="fas fa-sort-amount-up-alt"></span></th>    
+
+         <th width="20%" class="sorting" data-sorting_type="asc" data-column_name="title" style="cursor: pointer">Title
             <span id="title_icon"><i class="fas fa-sort-amount-up-alt"></span></th>          
        
             <th width="20%" class="sorting" data-sorting_type="asc" data-column_name="short_desc" style="cursor: pointer">Short Description

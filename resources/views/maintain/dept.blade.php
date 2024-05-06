@@ -52,6 +52,7 @@
  <table id="employee_data"  class="table table-bordered table-hover table-sm shadow">
     <thead>
        <tr>
+           <th  width="10%">ID </th>
            <th  width="10%">Location </th>
            <th width="25%" class="sorting" data-sorting_type="asc" data-column_name="dept_name" style="cursor: pointer">Department store
                    <span id="dept_name_icon" ><i class="fas fa-sort-amount-up-alt"></i></span></th>

@@ -2,6 +2,7 @@
            <tr>
                 <td> <img src="{{ asset('/uploads/admin/'.$row->image) }}" width="100" class="img-thumbnail" alt="Image"></td>
                 <td>  {{ $row->name}} </td>
+                <td>  {{ $row->serial}} </td>
                 <td>  {{ $row->designation}} </td>
                 <td>  {{ $row->phone}} </td>
               

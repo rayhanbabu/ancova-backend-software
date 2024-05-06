@@ -61,7 +61,11 @@
           <th  width="10%"> Image</th>
           <th width="25%" class="sorting" data-sorting_type="asc" data-column_name="collor_name" style="cursor: pointer"> Name 
                 <span id="collor_name_icon" ><i class="fas fa-sort-amount-up-alt"></i></span> </th>
-          <th  width="20%"> Designation</th>
+
+           <th width="25%" class="sorting" data-sorting_type="asc" data-column_name="serial" style="cursor: pointer"> Serial
+                <span id="serial_icon" ><i class="fas fa-sort-amount-up-alt"></i></span> </th>
+         
+         <th  width="20%"> Designation</th>
           <th  width="20%"> Phone</th>
           <th  width="10%"> </th>
 		      <th  width="10%"> </th>
@@ -127,6 +131,12 @@
                 <input type="text" name="designation" id="designation" class="form-control" placeholder="" required>
                 <p class="text-danger error_designation"></p>
             </div>
+
+            <div class="col-lg-12 my-2">
+         <label for="roll">Serial   </span></label>
+        <input type="number" name="serial" id="serial" class="form-control" placeholder="" >
+        <p class="text-danger error_serial"></p>
+      </div>
 
             <div class="col-lg-12 my-2">
                 <label for="roll">Email  </span></label>
@@ -231,6 +241,12 @@
     <label for="roll">Designation <span style="color:red;"> * </span> </span></label>
     <input type="text" name="designation" id="edit_designation" class="form-control" placeholder="" required>
     <p class="text-danger error_designation"></p>
+</div>
+
+<div class="col-lg-12 my-2">
+    <label for="roll">Serial   </span></label>
+    <input type="number" name="serial" id="edit_serial" class="form-control" placeholder="" >
+    <p class="text-danger error_serial"></p>
 </div>
 
 <div class="col-lg-12 my-2">
@@ -418,6 +434,7 @@
               $("#edit_others").val(response.data.others);
               $("#edit_web_link").val(response.data.web_link);
               $("#edit_status").val(response.data.status);
+              $("#edit_serial").val(response.data.serial);
               $("#edit_id").val(response.data.id);
           }
         });

@@ -468,7 +468,7 @@ class TeacherController extends Controller
                      ->orWhere('bank_details', 'like', '%'.$search.'%')
                      ->orWhere('nickname', 'like', '%'.$search.'%')
                      ->orWhere('email', 'like', '%'.$search.'%');
-               })->paginate(10);
+               })->orderBy($sort_by, $sort_type)->paginate(10);
                    return view('admin.teacher_data', compact('data'))->render();
                   
        }

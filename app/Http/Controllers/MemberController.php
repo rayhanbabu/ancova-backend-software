@@ -48,6 +48,7 @@ class MemberController extends Controller
             $model->category=$request->input('category');
             $model->text=$request->input('text');
             $model->others=$request->input('others');
+            $model->serial=$request->input('serial');
 
            
             if ($request->hasfile('image')) {
@@ -117,6 +118,7 @@ class MemberController extends Controller
         $model->text=$request->input('text');
         $model->others=$request->input('others');
         $model->status=$request->input('status');
+        $model->serial=$request->input('serial');
 
         if ($request->hasfile('image')) {
            $imgfile = 'booking-';
@@ -208,7 +210,7 @@ class MemberController extends Controller
                     ->orWhere('phone', 'like', '%'.$search.'%')
                     ->orWhere('web_link', 'like', '%'.$search.'%')
                     ->orWhere('others', 'like', '%'.$search.'%');
-              })->paginate(10);
+              })->orderBy($sort_by, $sort_type)->paginate(10);
                   return view('admin.member_data', compact('data'))->render();
                  
       }

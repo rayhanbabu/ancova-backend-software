@@ -43,15 +43,19 @@
         @csrf
   
       <div class="row">
-          <div class="col-sm-6 my-2">
+          <div class="col-sm-4 my-2">
             <label for="name">Date<span style="color:red;"> * </span></label>
             <input type="date" name="date" id="date" class="form-control" value="{{ old('date') }}"  required>
           </div>
 
           <input type="hidden" name="category" id="category"  value="{{ $category }}" >
           
+          <div class="col-sm-4 my-2">
+            <label for="name"> Serial </label>
+            <input type="number" name="serial" id="serial" class="form-control" value="{{ old('serial') }}" >
+          </div>
 
-          <div class="col-sm-6 my-2">
+          <div class="col-sm-4 my-2">
               <label for="image">Image Optional (Max Size:400KB)</label>
               <input type="file" name="image"  class="form-control" >
           </div>

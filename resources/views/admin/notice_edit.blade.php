@@ -49,19 +49,12 @@
              <input type="date" name="date" id="name"  value="{{$data->date}}"class="form-control" placeholder=""  required>
           </div>
 
-        <div class="col-sm-4 my-2">
-             <label for="lname">Category<span style="color:red;"> * </span></label>
-                 <select class="form-select" name="category" id="category" aria-label="Default select example"  required >
-                      <option value="{{$data->category}}" selected>{{$data->category}}</option>
-                      <option value="Service">Service</option>
-                      <option value="Project">Project</option>
-                      <option value="Highlight">Highlight</option>
-                      <option value="Vision">Vision</option>
-                      <option value="About">About</option>
-                      <option value="Testimonial">Testimonial</option>
-                      <option value="Title">Title</option>
-                 </select>
+          <div class="col-sm-4 my-2">
+            <label for="name"> Serial </label>
+               <input type="number" name="serial" id="serial" class="form-control" value="{{$data->serial}}" >
           </div>
+
+          <input type="hidden" name="category" id="category"  value="{{ $category }}" >
 
           <div class="col-sm-4 my-2">
               <label for="name">Image Optional (Max Size:400KB)</label>

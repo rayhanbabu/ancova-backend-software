@@ -1,16 +1,15 @@
-
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>ANCOVA</title>
-    <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
- 	  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="{{asset('dashboardfornt\css\login.css')}}">
-      <link rel="icon" type="image/png" href="{{ asset('images/alibrary.png') }}">
-	  <script src="{{asset('dashboardfornt\js\jquery-3.5.1.js')}}"></script>
-	  <script src="{{asset('dashboardfornt/js/sweetalert.min.js')}}"></script>
-	  <meta name="csrf-token" content="{{ csrf_token() }}">
+  	 <title>ANCOVA</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 	      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('dashboardfornt\css\login.css')}}">
+        <link rel="icon" type="image/png" href="{{ asset('images/alibrary.png') }}">
+	      <script src="{{asset('dashboardfornt\js\jquery-3.5.1.js')}}"></script>
+	      <script src="{{asset('dashboardfornt/js/sweetalert.min.js')}}"></script>
+	      <meta name="csrf-token" content="{{ csrf_token() }}">
 
 	  <style>
  .codeform{

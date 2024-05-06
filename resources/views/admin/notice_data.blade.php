@@ -1,6 +1,7 @@
 @foreach($data as $row)
       <tr>
                   <td>{{ $row->date}}</td>
+                  <td>{{ $row->serial}}</td>
                   <td>{{ $row->title}}</td>
                   <td>{{ $row->short_desc}}</td>
                   <td><img src="{{ asset('/uploads/admin/'.$row->image) }}" width="70" class="img-thumbnail" alt="Image"></td>

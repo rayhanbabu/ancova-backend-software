@@ -1,5 +1,6 @@
 @foreach($data as $row)
            <tr>
+                  <td>  {{ $row->id}}</td>
                   <td>  {{ $row->university}}</td>
                   <td>  {{ $row->dept_name}}</td>
                   <td>  {{ $row->dept_address}}</td>

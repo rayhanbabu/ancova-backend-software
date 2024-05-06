@@ -17,14 +17,15 @@ use App\Http\Controllers\BackendApiController;
 */
 
       Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-         return $request->user();
+           return $request->user();
       });
 
       Route::get('{dept_id}/department_view/', [BackendApiController::class, 'department_view']);
       Route::get('{dept_id}/collor_view/', [BackendApiController::class,'collor_view']);
 
-      Route::get('{dept_id}/notice/{category}', [BackendApiController::class,'notice_view']);
+      Route::get('{dept_id}/notice/{category}',[BackendApiController::class,'notice_view']);
       Route::post('{dept_id}/contact_form', [BackendApiController::class,'contact_form']);
+      Route::get('{dept_id}/member/{category}',[BackendApiController::class,'member_view']);
     
 
 
