@@ -79,6 +79,7 @@ class NoticeController extends Controller
         $model->text=$request->input('text');
         $model->desc=$request->input('desc');
         $model->link=$request->input('link');
+        $model->serial=$request->input('serial');
         $model->short_desc=$request->input('short_desc');
 
         if($request->hasfile('image')){
@@ -124,6 +125,7 @@ class NoticeController extends Controller
         $model->title=$request->input('title');
         $model->desc=$request->input('desc');
         $model->link=$request->input('link');
+        $model->serial=$request->input('serial');
         $model->short_desc=$request->input('short_desc');
 
         if($request->hasfile('image')){

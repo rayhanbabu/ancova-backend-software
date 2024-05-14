@@ -77,7 +77,7 @@
 
           <div class="col-sm-12 my-2">
             <label for="name">Short Description </label>
-            <input type="text" name="short_desc" id="short_desc" value="{{$data->short_desc}}" class="form-control" placeholder="" >
+            <textarea name="short_desc"  class="form-control" cols="10" rows="3"> {{ $data->short_desc }}</textarea>
           </div>
 
         </div>

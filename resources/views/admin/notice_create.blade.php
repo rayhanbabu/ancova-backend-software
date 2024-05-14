@@ -74,7 +74,7 @@
 
           <div class="col-sm-12 my-2">
             <label for="name">Short Description </label>
-            <input type="text" name="short_desc" id="short_desc" class="form-control" value="{{ old('short_desc') }}"  >
+            <textarea name="short_desc"  class="form-control" cols="10"  value="{{ old('short_desc') }}"  rows="3"> </textarea>
           </div>
 
         </div>
