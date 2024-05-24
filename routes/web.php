@@ -106,13 +106,11 @@ use App\Http\Controllers\MemberController;
  
  
       Route::middleware('TeacherToken')->group(function(){
-          Route::get('/admin/dashboard',[TeacherController::class,'dashboard']);
-          Route::get('/admin/logout',[TeacherController::class,'logout']);
-          Route::get('admin/password',[TeacherController::class,'passwordview']);
-          Route::post('admin/password',[TeacherController::class,'passwordupdate']); 
-
-
-                   
+           Route::get('/admin/dashboard',[TeacherController::class,'dashboard']);
+           Route::get('/admin/logout',[TeacherController::class,'logout']);
+           Route::get('admin/password',[TeacherController::class,'passwordview']);
+           Route::post('admin/password',[TeacherController::class,'passwordupdate']); 
+          
          Route::middleware('AdminToken')->group(function(){
               //Teacher  create
               Route::get('/admin/teacher_view',[TeacherController::class,'teacher_view']);
@@ -146,12 +144,12 @@ use App\Http\Controllers\MemberController;
         Route::get('/admin/notice_fetch/{category}',[NoticeController::class,'fetch']);
         Route::get('/admin/notice/fetch_data/{category}',[NoticeController::class,'fetch_data']); 
 
-        Route::get('/admin/notice_create/{category}',[NoticeController::class,'notice_create']);
-        Route::post('/admin/notice_insert',[NoticeController::class,'store']); 
-        Route::get('/admin/notice_view/{id}/{category}',[NoticeController::class,'view']);
-        Route::get('/admin/notice_edit/{id}/{category}',[NoticeController::class,'edit']);
-        Route::post('/admin/notice_update/{id}',[NoticeController::class,'update']);
-        Route::get('/admin/notice_delete/{id}/{category}',[NoticeController::class,'destroy']);
+         Route::get('/admin/notice_create/{category}',[NoticeController::class,'notice_create']);
+         Route::post('/admin/notice_insert',[NoticeController::class,'store']); 
+         Route::get('/admin/notice_view/{id}/{category}',[NoticeController::class,'view']);
+         Route::get('/admin/notice_edit/{id}/{category}',[NoticeController::class,'edit']);
+         Route::post('/admin/notice_update/{id}',[NoticeController::class,'update']);
+         Route::get('/admin/notice_delete/{id}/{category}',[NoticeController::class,'destroy']);
 
             //Client  create
             Route::get('/admin/client_view',[ClientController::class,'client_view']);

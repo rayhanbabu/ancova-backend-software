@@ -51,9 +51,7 @@ class BackendApiController extends Controller
            ],200);
       }
 
-   
-
-   
+  
       public function contact_form(Request $request,$dept_id){
       
         $validator=\Validator::make($request->all(),[    

@@ -1,5 +1,17 @@
+<?php 
+$currentDate = new DateTime();
+
+?>
+
 @foreach($data as $row)
-           <tr>
+ 
+<?php $interval= $currentDate->diff(new DateTime($row->domain_expired));  
+                    
+                
+                  if($interval->format('%m')>0){
+                     $over = 'style="background:#fccccc"';
+                  }else{ $over = ''; } ?>
+           <tr <?php echo  $over; ?> >
                    <td> <img src="{{ asset('/uploads/'.$row->image) }}" width="100" class="img-thumbnail" alt="Image"></td>
                   <td>  {{ $row->client_name}}</td>
                   <td>  {{ $row->phone}}</td>
@@ -19,6 +31,9 @@
                   <td>  {{ $row->expired_date}}</td>
                   <td>  {{ $row->subcribe}}</td>
                   <td>  {{ $row->service_info}}</td>
+                  <td>  {{ $row->domain_name}}</td>
+                  <td>  {{ $row->domain_expired}}</td>
+                  <td> <?php  echo $interval->format('%y years, %m months'); ?> </td>
                   <td>  {{ $row->domain_info}}</td>
                   <td>  {{ $row->total_amount}}</td>
                   <td>  {{ $row->discount_info}}</td>

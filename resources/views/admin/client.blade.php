@@ -69,6 +69,10 @@
           <th  width="10%"> Expired date </th>
           <th  width="10%"> Subscribe </th>
           <th  width="10%"> Service Info </th>
+          <th  width="10%"> Domain Name </th>
+          <th width="25%" class="sorting" data-sorting_type="asc" data-column_name="domain_expired" style="cursor: pointer">Domain Expired date
+                <span id="domain_expired_icon" ><i class="fas fa-sort-amount-up-alt"></i></span> </th>
+          <th  width="10%"> Domain Expired </th>
           <th  width="10%"> Domain Info </th>
           <th  width="10%"> Total Amount </th>
 		      <th  width="10%"> Discount info </th>
@@ -143,34 +147,47 @@
          </div>
 
          <div class="col-lg-12 my-2">
-             <label for="roll">Service Info <span style="color:red;"> * </span> </label>
+             <label for="roll"> Service Info <span style="color:red;"> * </span> </label>
              <input type="text" name="service_info" id="service_info" class="form-control" placeholder="" required>
              <p class="text-danger error_service_info"></p>
          </div>
 
          <div class="col-lg-12 my-2">
-             <label for="roll">Total Amount <span style="color:red;"> * </span></label>
+             <label for="roll"> Total Amount <span style="color:red;"> * </span> </label>
              <input type="number" name="total_amount" id="total_amount" class="form-control" placeholder="" required>
              <p class="text-danger error_total_amount"></p>
          </div>
 
 
          <div class="col-lg-12 my-2">
-             <label for="roll">Created date <span style="color:red;"> * </span> </label>
+             <label for="roll">  Created date <span style="color:red;"> * </span>  </label>
              <input type="date" name="created_date" id="created_date" class="form-control" placeholder="" required>
              <p class="text-danger error_created_date"></p>
          </div>
 
          <div class="col-lg-12 my-2">
-             <label for="roll">Subcribe Month <span style="color:red;"> * </span> </label>
+             <label for="roll"> Subcribe Month <span style="color:red;"> * </span>  </label>
              <input type="number" name="subcribe" id="subcribe" class="form-control" placeholder="" required>
              <p class="text-danger error_subcribe"></p>
          </div>
 
          <div class="col-lg-12 my-2">
-                <label for="roll">Discount amount <span style="color:red;"> * </span> </label>
+                <label for="roll"> Discount amount <span style="color:red;"> * </span>  </label>
                 <input type="number" name="discount_amount" id="discount_amount" class="form-control" placeholder="" required >
                 <p class="text-danger error_discount_amount"></p>
+         </div>
+
+
+         <div class="col-lg-12 my-2">
+             <label for="roll"> Domain Name  <span style="color:red;">*</span>  </label>
+             <input type="text" name="domain_name" id="domain_name" class="form-control" placeholder="" required>
+             <p class="text-danger error_domain_name"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll"> Domain Expired <span style="color:red;">*</span> </label>
+             <input type="date" name="domain_expired" id="domain_expired" class="form-control" placeholder="" required>
+             <p class="text-danger error_domain_expired"></p>
          </div>
 
          <div class="col-lg-12 my-2">
@@ -305,6 +322,19 @@
                 <input type="number" name="discount_amount" id="edit_discount_amount" class="form-control" placeholder="" required >
                 <p class="text-danger error_discount_amount"></p>
          </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll"> Domain Name <span style="color:red;">*</span> </label>
+             <input type="text" name="domain_name" id="edit_domain_name" class="form-control" placeholder="" required>
+             <p class="text-danger error_domain_name"></p>
+         </div>
+
+         <div class="col-lg-12 my-2">
+             <label for="roll"> Domain Expired <span style="color:red;">*</span> </label>
+             <input type="date" name="domain_expired" id="edit_domain_expired" class="form-control" placeholder="" required>
+             <p class="text-danger error_domain_expired"></p>
+         </div>
+
 
            <div class="col-lg-12 my-2">
                <label for="roll">Discount Description </label>
@@ -486,6 +516,8 @@
               $("#edit_client_status").val(response.data.client_status);
               $("#edit_client_info").val(response.data.client_info);
               $("#edit_client_ref").val(response.data.client_ref);
+              $("#edit_domain_name").val(response.data.domain_name);
+              $("#edit_domain_expired").val(response.data.domain_expired);
               //console.log(response);
 
               $("#edit_id").val(response.data.id);

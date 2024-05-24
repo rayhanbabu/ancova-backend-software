@@ -62,24 +62,27 @@ class ClientController extends Controller
              $model->payment_amount=$request->input('total_amount')-$request->input('discount_amount');
              $model->created_by=$teacher_id;
 
-             if ($request->hasfile('image')) {
+             $model->domain_expired=$request->input('domain_expired');
+             $model->domain_name=$request->input('domain_name');
+
+             if($request->hasfile('image')){
                $imgfile = 'booking-';
                $size = $request->file('image')->getsize();
                $file = $_FILES['image']['tmp_name'];
                $hw = getimagesize($file);
-                //    $w = $hw[0];
-                //    $h = $hw[1];
-                //    if ($w < 310 && $h < 310) {
+                   //    $w = $hw[0];
+                   //    $h = $hw[1];
+                   //    if ($w < 310 && $h < 310) {
                    $image = $request->file('image');
                    $new_name = $imgfile . rand() . '.' . $image->getClientOriginalExtension();
                    $image->move(public_path('uploads'), $new_name);
                    $model->image = $new_name;
-                 // } else {
-                 //    return response()->json([
-                 //        'status' => 300,
-                 //        'message' => 'Image size must be 300*300px',
-                 //    ]);
-                 //  }
+                   // } else {
+                   //    return response()->json([
+                   //        'status' => 300,
+                   //        'message' => 'Image size must be 300*300px',
+                   //    ]);
+                   //  }
              }
              $model->save();
 
@@ -156,6 +159,9 @@ class ClientController extends Controller
       $model->payment_amount=$request->input('total_amount')-$request->input('discount_amount');
       $model->client_status=$request->input('client_status');
       $model->updated_by=$teacher_id;
+
+      $model->domain_expired=$request->input('domain_expired');
+      $model->domain_name=$request->input('domain_name');
 
          if ($request->hasfile('image')) {
             $imgfile = 'booking-';
@@ -236,6 +242,7 @@ class ClientController extends Controller
           $dept_id = $request->header('dept_id');
           $sort_by = $request->get('sortby');
           $sort_type = $request->get('sorttype'); 
+          $range = $request->get('range'); 
              $search = $request->get('search');
              $search = str_replace("","%", $search);
              $data = Client::where('dept_id',$dept_id)
@@ -246,7 +253,7 @@ class ClientController extends Controller
                      ->orWhere('address', 'like', '%'.$search.'%')
                      ->orWhere('created_date', 'like', '%'.$search.'%')
                      ->orWhere('email', 'like', '%'.$search.'%');
-               })->paginate(10);
+               })->orderBy($sort_by, $sort_type)->paginate($range);
              return view('admin.client_data', compact('data'))->render();    
          }
        }
