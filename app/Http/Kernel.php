@@ -55,6 +55,11 @@ class Kernel extends HttpKernel
      */
     
     protected $middlewareAliases = [
+        'AnimalAccess' => \App\Http\Middleware\AnimalAccess::class,
+        'TeacherLoginAccess' => \App\Http\Middleware\TeacherLoginAccess::class,
+        'EventAccess' => \App\Http\Middleware\EventAccess::class,
+        'MemberAccess' => \App\Http\Middleware\MemberAccess::class,
+        'PaymentAccess' => \App\Http\Middleware\PaymentAccess::class,
         'AdminToken' => \App\Http\Middleware\AdminToken::class,
         'TeacherTokenExist' => \App\Http\Middleware\TeacherTokenExist::class,
         'TeacherToken' => \App\Http\Middleware\TeacherToken::class,

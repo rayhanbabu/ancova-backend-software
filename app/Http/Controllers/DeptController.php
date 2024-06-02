@@ -85,12 +85,12 @@ class DeptController extends Controller
      public function dept_edit(Request $request) {
         $id = $request->id;
         $data=Dept::leftjoin('univers','univers.id', '=','depts.university_id')
-         ->leftjoin('teachers','teachers.dept_id', '=','depts.id')
+         ->leftjoin('teachers','teachers.dept_id','=','depts.id')
          ->where('teachers.role','admin')->where('depts.id',$id)
          ->select('univers.university','depts.*','teachers.email','teachers.phone'
          ,'teachers.role','teachers.id as teacher_id','teachers.password'
          ,'teachers.teacher_status','teachers.login_code' ,'teachers.teacher'
-         ,'teachers.member','teachers.event','teachers.payment')->first();
+         ,'teachers.member','teachers.event','teachers.payment','teachers.animal')->first();
           return response()->json([
              'status'=>200,  
               'data'=>$data,
@@ -148,6 +148,7 @@ class DeptController extends Controller
             $teacher->event =$request->input('event');
             $teacher->member =$request->input('member');
             $teacher->payment =$request->input('payment');
+            $teacher->animal =$request->input('animal');
             $teacher->created_by=$maintain_id;
             $teacher->update(); 
            }
@@ -183,7 +184,8 @@ class DeptController extends Controller
          ->leftjoin('teachers','teachers.dept_id', '=','depts.id')
          ->where('teachers.role','admin')
          ->select('univers.university','depts.*','teachers.email','teachers.phone','teachers.login_code'
-         ,'teachers.role','teachers.id as teacher_id','teachers.password','teachers.teacher_status')->paginate(10);
+         ,'teachers.role','teachers.id as teacher_id','teachers.password','teachers.teacher_status'
+         ,'teachers.teacher','teachers.member','teachers.event','teachers.payment','teachers.animal')->paginate(10);
      
         return view('maintain.dept_data',compact('data'));
      }
@@ -208,7 +210,8 @@ class DeptController extends Controller
                       ->orWhere('dept_address', 'like', '%'.$search.'%')
                       ->orWhere('phone', 'like', '%'.$search.'%');
                 })->select('univers.university','depts.*','teachers.email','teachers.phone','teachers.login_code'
-                ,'teachers.role','teachers.id as teacher_id','teachers.password','teachers.teacher_status')->paginate(10);
+                ,'teachers.role','teachers.id as teacher_id','teachers.password','teachers.teacher_status'
+                ,'teachers.teacher','teachers.member','teachers.event','teachers.payment','teachers.animal')->paginate(10);
            return view('maintain.dept_data', compact('data'))->render();
                    
         }

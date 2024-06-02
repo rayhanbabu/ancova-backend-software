@@ -64,6 +64,12 @@
            <th  width="10%">Status</th>
 		       <th  width="10%"></th>
 		       <th  width="10%"></th>
+
+           <th  width="10%">Payment Access</th>
+           <th  width="10%">Memner Access</th>
+           <th  width="10%">Teacher Login Access</th>
+           <th  width="10%">Event Access</th>
+           <th  width="10%">Animal Access</th>
       </tr>
 
        <tr>
@@ -254,36 +260,44 @@
               </div>
 
            <div class="col-lg-6 my-1">   
-              <label class="">Payment Status <span style="color:red;"> * </span></label>
+              <label class="">Payment Access <span style="color:red;"> * </span></label>
                 <select class="form-control mb-2" id="edit_payment" name="payment" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
+                     <option value="No">No</option>
+                     <option value="Yes">Yes</option>
                 </select>
               </div>
 
 
               <div class="col-lg-6 my-1">   
-              <label class="">Member Status <span style="color:red;"> * </span></label>
+              <label class="">Member Access <span style="color:red;"> * </span></label>
                 <select class="form-control mb-2" id="edit_member" name="member" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
                 </select>
               </div>
 
 
               <div class="col-lg-6 my-1">   
-              <label class="">Event Status <span style="color:red;"> * </span></label>
+              <label class="">Event Access <span style="color:red;"> * </span></label>
                 <select class="form-control mb-2" id="edit_event" name="event" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
                 </select>
               </div>
 
              <div class="col-lg-6 my-1">   
-              <label class="">teacher Status <span style="color:red;"> * </span></label>
+              <label class="">teacher Login Access <span style="color:red;"> * </span></label>
                 <select class="form-control mb-2" id="edit_teacher" name="teacher" aria-label="Default select example" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                </select>
+              </div>
+
+              <div class="col-lg-6 my-1">   
+              <label class="">Animal Access <span style="color:red;"> * </span></label>
+                <select class="form-control mb-2" id="edit_animal" name="animal" aria-label="Default select example" required>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
                 </select>
               </div>
          
@@ -421,6 +435,7 @@
               $("#edit_teacher").val(response.data.teacher); 
               $("#edit_event").val(response.data.event); 
               $("#edit_payment").val(response.data.payment); 
+              $("#edit_animal").val(response.data.animal); 
               $("#edit_established_date").val(response.data.established_date); 
             
               

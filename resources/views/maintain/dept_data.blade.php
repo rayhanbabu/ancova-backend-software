@@ -14,10 +14,18 @@
             @else
               <a href="#"  class="btn btn-danger btn-sm"> Inactive<a>
              @endif
-            </td>
+             </td>
                 <td> <button type="button" value="{{ $row->id}}" class="btn btn-primary btn-sm editIcon" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>  </td>
                 <td> <button type="button" value="{{ $row->id}}" class="btn btn-danger btn-sm deleteIcon" >Delete</button>  </td>
-            </tr>            
+             
+
+             <td>  {{ $row->payment}} </td>   
+             <td>  {{ $row->member}} </td> 
+             <td>  {{ $row->teacher}} </td> 
+             <td>  {{ $row->event}} </td>  
+             <td>  {{ $row->animal}} </td>  
+             
+             </tr>             
 @endforeach
   <tr class="pagin_link">
         <td colspan="4" align="center">

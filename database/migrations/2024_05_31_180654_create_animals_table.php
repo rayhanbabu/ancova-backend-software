@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('weeks', function (Blueprint $table) {
+        Schema::create('animals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('dept_id');
             $table->foreign('dept_id')->references('id')->on('depts');
             $table->string('image')->nullable();
-            $table->integer('serial');
-            $table->string('category_name');
-            $table->string('week');
-            $table->text('text')->nullable();
-            $table->text('text2')->nullable();
-            $table->text('text3')->nullable();
+            $table->string('animal_name');
+            $table->string('animal_status')->default(1);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('weeks');
+        Schema::dropIfExists('animals');
     }
 };

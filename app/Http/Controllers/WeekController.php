@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dept;
 use App\Models\Week;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use App\Models\Teacher;
 
 
 
@@ -15,19 +17,26 @@ class WeekController extends Controller
 {
     
       public function week_view() {
-          return view('maintain.week-view');
+
+           $dept=Dept::get();     
+           if(isset($_GET['dept_id'])){
+               $dept_id=Dept::where('id',$_GET['dept_id'])->first();
+           }else{
+               $dept_id='';  
+            }
+
+          return view('maintain.week-view',['dept'=>$dept,'dept_id'=>$dept_id]);
        }
 
 
     public function store(Request $request){
 
          $validator=\Validator::make($request->all(),[    
-            'week'=>'required|unique:weeks,week',
+            'week'=>'required',
             
           ],
            [
             'week.required'=>'week  is required',
-            'week.unique'=>'week Name Already Exist',
            ]);
 
       if($validator->fails()){
@@ -41,6 +50,7 @@ class WeekController extends Controller
              $model->week=$request->input('week');
              $model->category_name=$request->input('category_name');  
              $model->serial=$request->input('serial');
+             $model->dept_id=$request->input('dept_id');
              if($request->hasfile('image')){
                 $imgfile='maintain-';
                 $size = $request->file('image')->getsize(); 
@@ -80,11 +90,9 @@ class WeekController extends Controller
 
 
 
-    public function fetchAll() {
+    public function fetchAll($dept_id) {
       
-        $data= Week::get();
-
-    
+        $data= Week::where('dept_id',$dept_id)->get();
         $output = '';
         if ($data->count()> 0) {
           $output.=' <h5 class="text-success"> Total Row : '.$data->count().' </h5>';	
@@ -135,12 +143,11 @@ class WeekController extends Controller
    
       public function update(Request $request ){
         $validator=\Validator::make($request->all(),[    
-            'week' => 'required|unique:weeks,week,'.$request->input('edit_id'),
-         ],
-         [
+            'week'=>'required',
+          ],
+          [
           'week.required'=>'week  is required',
-          'week.unique'=>'week Name Already Exist',
-         ]);
+          ]);
 
       if($validator->fails()){
              return response()->json([

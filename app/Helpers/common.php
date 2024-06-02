@@ -22,6 +22,12 @@
            return $admin->name;
         }
 
+        function getDaysBetween2Dates(DateTime $date1, DateTime $date2, $absolute = true)
+        {
+          $interval = $date2->diff($date1);
+          return (!$absolute and $interval->invert) ? - $interval->days : $interval->days;
+        }
+
 
         function baseimage($path){
             //$path = 'image/slide1.jpg';
@@ -56,12 +62,16 @@
 
 
         function member_category(){      
-            $data=Week::where('category_name','Member')->orderby('serial','asc')->get();
+            $token_teacher=Cookie::get('token_teacher');
+            $result=TeacherJWTToken::ReadToken($token_teacher);
+            $data=Week::where('category_name','Member')->where('dept_id',$result->dept_id)->orderby('serial','asc')->get();
             return $data;
         }
      
-       function event_category(){      
-            $data=Week::where('category_name','Event')->orderby('serial','asc')->get();
+       function event_category(){  
+          $token_teacher=Cookie::get('token_teacher');
+           $result=TeacherJWTToken::ReadToken($token_teacher);    
+            $data=Week::where('category_name','Event')->where('dept_id',$result->dept_id)->orderby('serial','asc')->get();
             return $data;
         }
 
@@ -72,13 +82,56 @@
             return $result;
         }
 
-        function teacher_access(){
-            $token_teacher=Cookie::get('token_teacher');
-            $result=TeacherJWTToken::ReadToken($token_teacher);
-            $teacher_access = Teacher::where('dept_id',$result->dept_id)->where('role','admin')
-            ->select('teacher','member','payment','event')->first();
-            return $teacher_access;
-     }
+         function teacher_access(){
+              $token_teacher=Cookie::get('token_teacher');
+              $result=TeacherJWTToken::ReadToken($token_teacher);
+              $teacher_access = Teacher::where('dept_id',$result->dept_id)->where('role','admin')
+                ->select('teacher','member','payment','event','animal')->first();
+              return $teacher_access;
+          }
+
+
+           function payment_access(){
+            if(teacher_access()->payment=="Yes"){
+                  return true;
+              }else{
+                return false;
+              }
+           }
+
+           function member_access(){
+              if(teacher_access()->member=="Yes"){
+                    return true;
+               }else{
+                   return false;
+               }
+           }
+
+
+           function teacher_login_access(){
+              if(teacher_access()->teacher=="Yes"){
+                   return true;
+              }else{
+                   return false;
+              }
+            }
+
+            function event_access(){
+                 if(teacher_access()->event=="Yes"){
+                       return true;
+                 }else{
+                      return false;
+                  }
+              }
+
+              function animal_access(){
+                  if(teacher_access()->animal=="Yes"){
+                       return true;
+                  }else{
+                       return false;
+                  }
+               }
+  
 
 
         function adminaccess(){
@@ -94,13 +147,7 @@
             }
         }
 
-  function programe_category(){
-          $token_teacher=Cookie::get('token_teacher');
-          $result=TeacherJWTToken::ReadToken($token_teacher);
-          $category=DB::table('programes')->where('dept_id',$result->dept_id)->get();
-          return $category;
-   }
-
+ 
 
 
    function exam_category(){
@@ -109,9 +156,6 @@
     $examiner=DB::table('examiners')->where('dept_id',$result->dept_id)->get();
     return $examiner;
 }
-
-
-
 
 
 
