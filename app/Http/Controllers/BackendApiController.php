@@ -14,6 +14,55 @@ class BackendApiController extends Controller
 {
 
 
+  public function home_view(Request $request){
+
+      $about= Notice::leftjoin('weeks','weeks.id', '=','notices.category')
+      ->where('notices.dept_id',1)->where('notices.category',5)
+      ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
+   
+      $title= Notice::leftjoin('weeks','weeks.id', '=','notices.category')
+      ->where('notices.dept_id',1)->where('notices.category',9)
+      ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
+
+      $service= Notice::leftjoin('weeks','weeks.id','=','notices.category')
+      ->where('notices.dept_id',1)->where('notices.category',7)
+      ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
+
+      $project= Notice::leftjoin('weeks','weeks.id','=','notices.category')
+      ->where('notices.dept_id',1)->where('notices.category',1)
+      ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
+
+      $testimonial= Notice::leftjoin('weeks','weeks.id','=','notices.category')
+      ->where('notices.dept_id',1)->where('notices.category',4)
+      ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
+
+     return view('frontend.home',['about'=>$about,'title'=>$title,'service'=>$service 
+     ,'project'=>$project,'testimonial'=>$testimonial]);
+  
+    }
+
+    public function about_view(Request $request){
+       $about= Notice::leftjoin('weeks','weeks.id', '=','notices.category')
+       ->where('notices.dept_id',1)->where('notices.category',5)
+       ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
+       return view('frontend.about',['about'=>$about]);   
+     }
+
+     public function service_view(Request $request){
+           $service= Notice::leftjoin('weeks','weeks.id','=','notices.category')
+           ->where('notices.dept_id',1)->where('notices.category',7)
+           ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
+         return view('frontend.service',['service'=>$service]);   
+      }
+
+      public function project_view(Request $request){
+           $project= Notice::leftjoin('weeks','weeks.id','=','notices.category')
+           ->where('notices.dept_id',1)->where('notices.category',1)
+           ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->get();
+         return view('frontend.project',['project'=>$project]);   
+       }
+
+
     public function department_view(Request $request ,$dept_id){
          $data= Dept::where('id',$dept_id)->first();
          return response()->json([
@@ -52,8 +101,7 @@ class BackendApiController extends Controller
       }
 
   
-      public function contact_form(Request $request,$dept_id){
-      
+     public function contact_form(Request $request,$dept_id){
         $validator=\Validator::make($request->all(),[    
            'collor_name'=>'required',
            'image'=>'image|mimes:jpeg,png,jpg|max:400',
@@ -66,7 +114,6 @@ class BackendApiController extends Controller
                 'message'=>$validator->messages(),
              ]);
        }else{
-  
               $model= new Collor;
               $model->dept_id=$dept_id;
               $model->collor_name=$request->input('collor_name');
@@ -74,7 +121,7 @@ class BackendApiController extends Controller
               $model->email=$request->input('email');
               $model->phone=$request->input('phone');
               $model->subject=$request->input('subject');
-              if ($request->hasfile('image')) {
+              if($request->hasfile('image')) {
                 $imgfile = 'booking-';
                 $size = $request->file('image')->getsize();
                 $file = $_FILES['image']['tmp_name'];
@@ -86,18 +133,18 @@ class BackendApiController extends Controller
                     $new_name = $imgfile . rand() . '.' . $image->getClientOriginalExtension();
                     $image->move(public_path('uploads'), $new_name);
                     $model->image = $new_name;
-                 } else {
+                  } else {
                     return response()->json([
                         'status' => 300,
                         'message' => 'Image size must be 300*300px',
                     ]);
-                  }
+                 }
               }
              
               $model->save();
   
               return response()->json([
-                    'status'=>'success',  
+                    'status'=>200,  
                     'message'=>'Data Added Successfull',
                ],200);     
           }

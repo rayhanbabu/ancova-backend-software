@@ -64,14 +64,14 @@
         function member_category(){      
             $token_teacher=Cookie::get('token_teacher');
             $result=TeacherJWTToken::ReadToken($token_teacher);
-            $data=Week::where('category_name','Member')->where('dept_id',$result->dept_id)->orderby('serial','asc')->get();
+            $data=Week::where('category_name','Member')->where('dept_id',$result->dept_id)->orderby('serial','asc')->orderby('week','asc')->get();
             return $data;
         }
      
        function event_category(){  
           $token_teacher=Cookie::get('token_teacher');
            $result=TeacherJWTToken::ReadToken($token_teacher);    
-            $data=Week::where('category_name','Event')->where('dept_id',$result->dept_id)->orderby('serial','asc')->get();
+            $data=Week::where('category_name','Event')->where('dept_id',$result->dept_id)->orderby('serial','asc')->orderby('week','asc')->get();
             return $data;
         }
 

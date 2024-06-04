@@ -15,6 +15,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\AlmaryController;
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\BackendApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -198,29 +199,22 @@ use App\Http\Controllers\AnimalController;
                Route::get('/admin/animal_edit',[AnimalController::class,'animal_edit']);
                Route::post('/admin/animal_update',[AnimalController::class,'animal_update']);
                Route::delete('/admin/animal_delete',[AnimalController::class,'animal_delete']);
+             });
 
-          });
-
-          
           // Reports pdf
           Route::get('/pdf/semester_routine', [PdfController::class,'semester_routine_pdf']);
-
-
-
       });
 
      
+      Route::get('/',[BackendApiController::class,'home_view']);
+      Route::get('/about',[BackendApiController::class,'about_view']);
+      Route::get('/service',[BackendApiController::class,'service_view']);
+      Route::get('/project',[BackendApiController::class,'project_view']);
+     
 
-
-
-
-
-
-
-
-     Route::get('/', function (){
-            return view('welcome');
-      });
+        Route::get('/contact', function (){
+            return view('frontend.contact');
+        });
 
      Route::get('/send-mail', function () {
           $details = [
