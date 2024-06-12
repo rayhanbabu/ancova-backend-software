@@ -15,6 +15,11 @@ use App\Exports\MemberExport;
 use App\Imports\MemberImport;
 use App\Models\Univer;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Image\Image;
+
+
+
 
 class MaintainController extends Controller
 {
@@ -427,7 +432,7 @@ public function fetchAll() {
   }
 
 
-  public function delete(Request $request) { 
+      public function delete(Request $request) { 
          $model=Maintain::find($request->input('id'));
          $path=public_path('uploads/'.$model->image);
          if(File::exists($path)){
@@ -454,19 +459,39 @@ public function fetchAll() {
    }
 
 
+     public function resize(Request $request){   
+         return view('maintain.resize');
+     }
 
+     public function resize_upload(Request $request){   
+      $request->validate([
+         'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+     ]);
 
+     $image = $request->file('image');
+     $filename = time() . '.' . $image->getClientOriginalExtension();
+     $filePath = public_path('uploads/admin/') . $filename;
 
+     $size = getimagesize($_FILES['image']['tmp_name']);
+     $resize=image_resize($size);
 
-     
-
-
-
-
+     $width=$resize['width'];
+     $height=$resize['height'];
 
     
 
+     $image = Image::load($image->getPathname())
+         ->width($width)
+         ->height($height)
+         ->save($filePath);
+      return response()->json(['success' => 'Image uploaded successfully','filename'=> $filename]);
+    }
 
 
 
-}
+   
+       }
+
+       
+      
+   

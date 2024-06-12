@@ -143,8 +143,6 @@
                 <p class="text-danger error_designation"></p>
             </div>
 
-           
-
             <div class="col-lg-12 my-2">
                 <label for="roll"> Image (Max:300*300px)</label>
                 <input type="file" name="image" id="image" class="form-control" placeholder="" >

@@ -166,6 +166,35 @@ function week_details($week_id){
 }
 
 
+function image_resize($size){
+   //Resize the image
+   $maxWidth = 1420;
+   $size=$size;
+
+   // Get the original dimensions of the image
+    $currentWidth  = $size[0];
+    $currentHeight  = $size[1];
+
+    // Calculate the aspect ratio
+    $aspectRatio = $currentWidth / $currentHeight;
+
+    // Calculate the aspect ratio
+     $aspectRatio = $currentWidth / $currentHeight;
+
+// Check if the current width is within the desired range
+  if ($currentWidth > $maxWidth) {
+        $width = $maxWidth;
+        $height = intval($maxWidth / $aspectRatio);
+    }else{
+        $width = $currentWidth;
+        $height = intval($currentWidth / $aspectRatio);    
+    }
+       return [
+          'width' => $width,
+          'height' => $height,
+      ];
+
+   }
 
 
  

@@ -59,6 +59,10 @@ use App\Http\Controllers\BackendApiController;
            Route::get('/maintain/dept_edit',[DeptController::class,'dept_edit']);
            Route::post('/maintain/dept_update',[DeptController::class,'dept_update']);
            Route::delete('/maintain/dept_delete',[DeptController::class,'dept_delete']);
+
+           // image update
+           Route::get('/maintain/resize',[MaintainController::class,'resize']);
+           Route::post('/maintain/resize_upload',[MaintainController::class,'resize_upload'])->name('image.upload');
       
           Route::middleware('SupperAdminToken')->group(function(){
      

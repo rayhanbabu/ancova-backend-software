@@ -12,6 +12,7 @@ use Cookie;
 use Session;
 use DOMDocument;
 use Illuminate\Support\Str;
+use Spatie\Image\Image;
 
 class NoticeController extends Controller
 {
@@ -67,7 +68,7 @@ class NoticeController extends Controller
 
        $validated = $request->validate([
             'desc'=>'required',
-            'image' =>'image|mimes:jpeg,png,jpg|max:500',
+            'image' =>'file|mimes:jpeg,png,jpg,pdf|max:10240',
             'title'=>'required',
        ]);
 
@@ -82,12 +83,36 @@ class NoticeController extends Controller
         $model->serial=$request->input('serial');
         $model->short_desc=$request->input('short_desc');
 
+       
+
+       
         if($request->hasfile('image')){
-            $image= $request->file('image');
-            $file_name = 'image'.rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/admin'), $file_name);
-            $model->image=$file_name;
+
+          $image = $request->file('image');
+          $mimeType = $image->getClientMimeType();
+          if ($mimeType === 'application/pdf') {
+             $filename = time() . '.' . $image->getClientOriginalExtension();
+             $image->move(public_path('uploads/admin'), $filename);
+             $model->image=$filename;
+           }elseif (in_array($mimeType, ['image/jpeg','image/jpg','image/png'])) {
+              $filename = time() . '.' . $image->getClientOriginalExtension();
+              $filePath = public_path('uploads/admin/') . $filename;
+
+              $size = getimagesize($_FILES['image']['tmp_name']);
+              $resize=image_resize($size);
+              $width=$resize['width'];
+              $height=$resize['height'];
+
+              $image = Image::load($image->getPathname())
+              ->width($width)
+              ->height($height)
+              ->save($filePath);
+              $model->image=$filename;
+           }
+
          }
+
+
         $model->save();
 
         return redirect()->back()->with('success','Data Added Successfuly');
@@ -115,7 +140,7 @@ class NoticeController extends Controller
 
         $validated = $request->validate([
             'date'=>'required',
-            'image' =>'image|mimes:jpeg,png,jpg|max:500',
+            'image' =>'image|mimes:jpeg,png,jpg|max:10240',
             'title'=>'required',
         ]);
 
@@ -133,10 +158,28 @@ class NoticeController extends Controller
             if(File::exists($path)){
              File::delete($path);
              }
-             $image= $request->file('image');
-             $file_name = 'image'.rand() . '.' . $image->getClientOriginalExtension();
-             $image->move(public_path('uploads/admin'), $file_name);
-             $model->image=$file_name;
+
+           $image = $request->file('image');
+          $mimeType = $image->getClientMimeType();
+          if ($mimeType === 'application/pdf') {
+             $filename = time() . '.' . $image->getClientOriginalExtension();
+             $image->move(public_path('uploads/admin'), $filename);
+             $model->image=$filename;
+           }elseif (in_array($mimeType, ['image/jpeg','image/jpg','image/png'])) {
+              $filename = time() . '.' . $image->getClientOriginalExtension();
+              $filePath = public_path('uploads/admin/') . $filename;
+
+              $size = getimagesize($_FILES['image']['tmp_name']);
+              $resize=image_resize($size);
+              $width=$resize['width'];
+              $height=$resize['height'];
+
+              $image = Image::load($image->getPathname())
+              ->width($width)
+              ->height($height)
+              ->save($filePath);
+              $model->image=$filename;
+           }
          }
         $model->save();
 

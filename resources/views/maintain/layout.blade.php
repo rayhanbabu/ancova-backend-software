@@ -125,6 +125,12 @@
            Department Store 
      </a>
 
+
+     <a class="nav-link @yield('resize')" href="{{url('maintain/resize')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+           Resize
+     </a>
+
     
 
   </div>
