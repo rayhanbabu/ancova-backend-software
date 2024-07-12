@@ -90,6 +90,17 @@ class BackendApiController extends Controller
       }
 
 
+      public function notice_details(Request $request ,$dept_id,$category,$id){
+        $data= Notice::leftjoin('weeks','weeks.id', '=','notices.category')
+        ->where('notices.dept_id',$dept_id)->where('notices.category',$category)->where('notices.id',$id)
+        ->select('weeks.week as category_name','notices.*')->orderby('serial','asc')->orderby('id','desc')->first();
+          return response()->json([
+              'status'=>'success',
+              'data'=>$data 
+           ],200);
+      }
+
+
       public function member_view(Request $request ,$dept_id,$category){
         $data= Member::leftjoin('weeks','weeks.id', '=','members.category')
         ->where('members.dept_id',$dept_id)->where('members.category',$category)
@@ -99,6 +110,18 @@ class BackendApiController extends Controller
                'data'=>$data 
            ],200);
       }
+
+
+      public function member_details(Request $request ,$dept_id,$category,$id){
+         $data= Member::leftjoin('weeks','weeks.id', '=','members.category')
+         ->where('members.dept_id',$dept_id)->where('members.category',$category)->where('members.id',$id)
+         ->select('weeks.week as category_name','members.*')->orderby('serial','asc')->orderby('id','desc')->first();
+          return response()->json([
+               'status'=>'success',
+               'data'=>$data 
+           ],200);
+      }
+
 
   
      public function contact_form(Request $request,$dept_id){

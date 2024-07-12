@@ -176,6 +176,14 @@
                 <p class="text-danger error_others"></p>
             </div>
 
+            <div class="col-lg-12 my-2">
+        <label for="roll"> Description  </span></label>
+        <textarea name="text" id="text" class="form-control" placeholder=""></textarea>
+       <p class="text-danger error_others"></p>
+    </div>
+
+
+
 
 
             <div class="col-lg-12 my-2">
@@ -281,11 +289,20 @@
 </div>
 
 
-<div class="col-lg-12 my-2">
-    <label for="roll"> Others  </span></label>
-    <input type="text" name="others" id="edit_others" class="form-control" placeholder="" >
-    <p class="text-danger error_others"></p>
-</div>
+
+   <div class="col-lg-12 my-2">
+       <label for="roll"> Others  </span></label>
+       <input type="text" name="others" id="edit_others" class="form-control" placeholder="" >
+    </div>
+
+
+    <div class="col-lg-12 my-2">
+        <label for="roll"> Description  </span></label>
+        <textarea name="text" id="edit_text" class="form-control" placeholder=""></textarea>
+       <p class="text-danger error_others"></p>
+    </div>
+
+
 
 
 
@@ -436,6 +453,7 @@
               $("#edit_status").val(response.data.status);
               $("#edit_serial").val(response.data.serial);
               $("#edit_id").val(response.data.id);
+              $("#edit_text").val(response.data.text);
           }
         });
       });
