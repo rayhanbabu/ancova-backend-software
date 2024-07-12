@@ -3,25 +3,46 @@
 @section('week','active')
 @section('content')
 
- <div class="row mt-3 mb-0 mx-2">
-                <div class="col-sm-3 my-2"> <h4 class="mt-0">Week View </h4></div>
+ 
+
+ <div class="row mt-2 mb-0 mx-1 shadow p-1">
+    
+       <div class="col-sm-6 my-2">
+           <form  method="get" enctype="multipart/form-data">   
+             <label> Select Client </label>
+                <select name="dept_id" id="dept_id" class="js-example-disabled-results" style="width:300px;" aria-label="Default select example" required>
+                      <option value=""> Select Client </option>
+                        @foreach($dept as $row)  
+                           @if($row->id==($dept_id?$dept_id->id:0))
+                                <option  value="{{$row->id}}" selected> 
+                               {{$row->dept_name}}</option>
+                            @else
+                               <option value="{{$row->id}}">{{$row->dept_name}}</option>
+                            @endif
+                        @endforeach
+                </select>
+
+
+      </div>
+    
+
+        <div class="col-sm-2 mt-2">
+              <button type="submit" name="search" class="btn btn-primary btn-sm">Search</button>
+         </div>
+      </form>
+    </div>
+
+
+    @if($dept_id!="") 
+      <div class="row mt-3 mb-0 mx-2">
+                <div class="col-sm-3 my-2"> <h4 class="mt-0">{{$dept_id?$dept_id->dept_name:""}} </h4></div>
                     
                  <div class="col-sm-3 my-2">
                   <div class="d-grid gap-2 d-flex justify-content-end"> 
                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Add</button>  
                  </div>    
                  </div>
-
-               @if(Session::has('success'))
-                  <div  class="alert alert-success"> {{Session::get('success')}}</div>
-               @endif
- 
-               @if(Session::has('fail'))
-                     <div  class="alert alert-danger"> {{Session::get('fail')}}</div>
-               @endif
-
- </div>
-
+   </div>
 
 
  <div class="table-responsive">
@@ -68,7 +89,7 @@
                <p class="text-danger error_week"></p>
          </div>
 
-     
+         <input type="hidden" name="dept_id"  id="admin_category" value="{{$dept_id->id}}" >
        <div class="col-lg-12 my-2">
          <label for="avatar">Select Image<span style="color:red;"> (Image must be 300*300px) </span></label>
          <input type="file" name="image"  id="image" class="form-control" >
@@ -219,7 +240,7 @@
       function fetchAll() {
         $.ajax({
           type:'GET',
-          url:'/week/fetchAll',
+          url:'/week/fetchAll/{{$dept_id->id}}',
           success: function(response) {
             $("#show_all_employees").html(response);
             $("table").DataTable({
@@ -335,17 +356,15 @@
       });
 
 	
+  });
 
+  </script>
+  @endif
 
-
-
-});
-
+<script type="text/javascript">
+        $('.js-example-basic-multiple').select2();
+        $(".js-example-disabled-results").select2();
 </script>
-
-
-
-
 
 
 

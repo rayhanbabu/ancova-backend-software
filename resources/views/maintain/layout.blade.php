@@ -23,8 +23,13 @@
 
 
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+   
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"  />
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" ></script>
   
+
+
     </head>
  
     <body class="sb-nav-fixed">
@@ -76,16 +81,8 @@
           Dashboard
      </a>
 																	
-							
-   
-
-   
-
-   
-
+						
        @if(maintainaccess())
-
-
        <a class="nav-link @yield('univer')" href="{{url('maintain/univer-view')}}">
         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
           Location   
@@ -93,7 +90,7 @@
 
     <a class="nav-link @yield('week')" href="{{url('maintain/week-view')}}">
         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-          Week View  
+          Client Category  
     </a>
 
          <a class="nav-link @yield('maintain')" href="{{url('maintain/maintainview')}}">
@@ -126,6 +123,12 @@
      <a class="nav-link @yield('hall')" href="{{url('maintain/dept_view')}}">
         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
            Department Store 
+     </a>
+
+
+     <a class="nav-link @yield('resize')" href="{{url('maintain/resize')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+           Resize
      </a>
 
     

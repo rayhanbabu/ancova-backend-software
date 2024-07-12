@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('weeks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('dept_id');
+            $table->foreign('dept_id')->references('id')->on('depts');
+            $table->string('image')->nullable();
             $table->integer('serial');
             $table->string('category_name');
-            $table->string('image')->nullable();
             $table->string('week');
             $table->text('text')->nullable();
             $table->text('text2')->nullable();

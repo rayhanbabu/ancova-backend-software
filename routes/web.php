@@ -13,6 +13,9 @@ use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\AlmaryController;
+use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\BackendApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +59,10 @@ use App\Http\Controllers\MemberController;
            Route::get('/maintain/dept_edit',[DeptController::class,'dept_edit']);
            Route::post('/maintain/dept_update',[DeptController::class,'dept_update']);
            Route::delete('/maintain/dept_delete',[DeptController::class,'dept_delete']);
+
+           // image update
+           Route::get('/maintain/resize',[MaintainController::class,'resize']);
+           Route::post('/maintain/resize_upload',[MaintainController::class,'resize_upload'])->name('image.upload');
       
           Route::middleware('SupperAdminToken')->group(function(){
      
@@ -67,7 +74,7 @@ use App\Http\Controllers\MemberController;
            Route::post('/maintain/update',[MaintainController::class,'update']);
 
 
-                 //Universty route
+          //Universty route
            Route::get('maintain/univer-view',[UniverController::class,'univer_view']);
            Route::post('/univer/store',[UniverController::class,'store']);
            Route::get('/univer/fetchAll',[UniverController::class,'fetchAll']);
@@ -85,7 +92,7 @@ use App\Http\Controllers\MemberController;
            //Week  route
            Route::get('maintain/week-view',[WeekController::class,'week_view']);
            Route::post('/week/store',[WeekController::class,'store']);
-           Route::get('/week/fetchAll',[WeekController::class,'fetchAll']);
+           Route::get('/week/fetchAll/{dept_id}',[WeekController::class,'fetchAll']);
            Route::get('/week/edit',[WeekController::class,'edit']);
            Route::post('/week/update',[WeekController::class,'update']);
            Route::delete('/week/delete',[WeekController::class,'delete']);
@@ -111,7 +118,8 @@ use App\Http\Controllers\MemberController;
            Route::get('admin/password',[TeacherController::class,'passwordview']);
            Route::post('admin/password',[TeacherController::class,'passwordupdate']); 
           
-         Route::middleware('AdminToken')->group(function(){
+
+        Route::middleware('TeacherLoginAccess')->group(function(){
               //Teacher  create
               Route::get('/admin/teacher_view',[TeacherController::class,'teacher_view']);
               Route::get('/admin/teacher_fetch',[TeacherController::class,'fetch']);
@@ -120,7 +128,7 @@ use App\Http\Controllers\MemberController;
               Route::get('/admin/teacher_edit',[TeacherController::class,'teacher_edit']);
               Route::post('/admin/teacher_update',[TeacherController::class,'teacher_update']);
               Route::delete('/admin/teacher_delete',[TeacherController::class,'teacher_delete']);
-
+         }); 
 
                //collors  create
             Route::get('/admin/collor_view',[CollorController::class,'collor_view']);
@@ -131,6 +139,7 @@ use App\Http\Controllers\MemberController;
             Route::post('/admin/collor_update',[CollorController::class,'collor_update']);
             Route::delete('/admin/collor_delete',[CollorController::class,'collor_delete']);
 
+       Route::middleware('MemberAccess')->group(function(){
             Route::get('/admin/member_view/{category}',[MemberController::class,'member_view']);
             Route::get('/admin/member_fetch/{category}',[MemberController::class,'fetch']);
             Route::get('/admin/member/fetch_data/{category}',[MemberController::class,'fetch_data']);
@@ -138,8 +147,10 @@ use App\Http\Controllers\MemberController;
             Route::get('/admin/member_edit',[MemberController::class,'member_edit']);
             Route::post('/admin/member_update',[MemberController::class,'member_update']);
             Route::delete('/admin/member_delete',[MemberController::class,'member_delete']);
+        });      
 
-         // Notice 
+      Route::middleware('EventAccess')->group(function(){
+         // Notice  Event
         Route::get('/admin/notice/{category}',[NoticeController::class,'index']);
         Route::get('/admin/notice_fetch/{category}',[NoticeController::class,'fetch']);
         Route::get('/admin/notice/fetch_data/{category}',[NoticeController::class,'fetch_data']); 
@@ -150,7 +161,9 @@ use App\Http\Controllers\MemberController;
          Route::get('/admin/notice_edit/{id}/{category}',[NoticeController::class,'edit']);
          Route::post('/admin/notice_update/{id}',[NoticeController::class,'update']);
          Route::get('/admin/notice_delete/{id}/{category}',[NoticeController::class,'destroy']);
+      });
 
+         Route::middleware('PaymentAccess')->group(function(){
             //Client  create
             Route::get('/admin/client_view',[ClientController::class,'client_view']);
             Route::get('/admin/client_fetch',[ClientController::class,'fetch']);
@@ -160,39 +173,52 @@ use App\Http\Controllers\MemberController;
             Route::post('/admin/client_update',[ClientController::class,'client_update']);
             Route::delete('/admin/client_delete',[ClientController::class,'client_delete']);
 
-
-          //Payment View 
-          Route::get('/admin/paymentview',[InvoiceController::class,'paymentview']);
-          Route::get('/admin/payment_fetch',[InvoiceController::class,'fetch']);
-          Route::get('/admin/payment/fetch_data',[InvoiceController::class,'fetch_data']);
-          Route::post('/admin/payment_status',[InvoiceController::class,'payment_status']);
-          Route::post('/admin/payment_delete',[InvoiceController::class,'payment_delete']);
-          Route::post('/admin/admin_invoice_create',[InvoiceController::class,'admin_invoice_create']);
-          Route::get('/admin/payment_refresh',[InvoiceController::class,'payment_refresh']);
+            //Payment View 
+            Route::get('/admin/paymentview',[InvoiceController::class,'paymentview']);
+            Route::get('/admin/payment_fetch',[InvoiceController::class,'fetch']);
+            Route::get('/admin/payment/fetch_data',[InvoiceController::class,'fetch_data']);
+            Route::post('/admin/payment_status',[InvoiceController::class,'payment_status']);
+            Route::post('/admin/payment_delete',[InvoiceController::class,'payment_delete']);
+            Route::post('/admin/admin_invoice_create',[InvoiceController::class,'admin_invoice_create']);
+            Route::get('/admin/payment_refresh',[InvoiceController::class,'payment_refresh']);
    
           });
 
-          
-          
+
+          Route::middleware('AnimalAccess')->group(function(){
+                //Alamary 
+               Route::get('/admin/almary_view',[AlmaryController::class,'almary_view']);
+               Route::get('/admin/almary_fetch',[AlmaryController::class,'fetch']);
+               Route::get('/admin/almary/fetch_data',[AlmaryController::class,'fetch_data']);
+               Route::post('/admin/almary_store',[AlmaryController::class,'store']);
+               Route::get('/admin/almary_edit',[AlmaryController::class,'almary_edit']);
+               Route::post('/admin/almary_update',[AlmaryController::class,'almary_update']);
+               Route::delete('/admin/almary_delete',[AlmaryController::class,'almary_delete']);
+
+               //Animal 
+               Route::get('/admin/animal_view',[AnimalController::class,'animal_view']);
+               Route::get('/admin/animal_fetch',[AnimalController::class,'fetch']);
+               Route::get('/admin/animal/fetch_data',[AnimalController::class,'fetch_data']);
+               Route::post('/admin/animal_store',[AnimalController::class,'store']);
+               Route::get('/admin/animal_edit',[AnimalController::class,'animal_edit']);
+               Route::post('/admin/animal_update',[AnimalController::class,'animal_update']);
+               Route::delete('/admin/animal_delete',[AnimalController::class,'animal_delete']);
+             });
+
           // Reports pdf
           Route::get('/pdf/semester_routine', [PdfController::class,'semester_routine_pdf']);
-
-
-
       });
 
      
+      Route::get('/',[BackendApiController::class,'home_view']);
+      Route::get('/about',[BackendApiController::class,'about_view']);
+      Route::get('/service',[BackendApiController::class,'service_view']);
+      Route::get('/project',[BackendApiController::class,'project_view']);
+     
 
-
-
-
-
-
-
-
-     Route::get('/', function (){
-            return view('welcome');
-      });
+        Route::get('/contact', function (){
+            return view('frontend.contact');
+        });
 
      Route::get('/send-mail', function () {
           $details = [

@@ -8,6 +8,7 @@ use App\Models\Week;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\validator;
+use Spatie\Image\Image;
 
 class MemberController extends Controller
 {
@@ -25,16 +26,16 @@ class MemberController extends Controller
       $validator=\Validator::make($request->all(),[    
          'name'=>'required',
          'designation'=>'required',
-         'image'=>'image|mimes:jpeg,png,jpg|max:400',
+         'image'=>'image|mimes:jpeg,png,jpg|max:10240',
        ],
        );
 
-     if($validator->fails()){
-            return response()->json([
-              'status'=>700,
-              'message'=>$validator->messages(),
-           ]);
-     }else{
+      if($validator->fails()){
+             return response()->json([
+               'status'=>700,
+               'message'=>$validator->messages(),
+            ]);
+       }else{
 
             $model= new Member;
             $model->dept_id=$dept_id;
@@ -52,23 +53,23 @@ class MemberController extends Controller
 
            
             if ($request->hasfile('image')) {
-              $imgfile = 'booking-';
-              $size = $request->file('image')->getsize();
-              $file = $_FILES['image']['tmp_name'];
-              $hw = getimagesize($file);
-              $w = $hw[0];
-              $h = $hw[1];
-              //if ($w < 310 && $h < 310) {
-                  $image = $request->file('image');
-                  $new_name = $imgfile . rand() . '.' . $image->getClientOriginalExtension();
-                  $image->move(public_path('uploads/admin'), $new_name);
-                  $model->image = $new_name;
-            //    } else {
-            //       return response()->json([
-            //           'status' => 300,
-            //           'message' => 'Image size must be 300*300px',
-            //       ]);
-            //     }
+              $image = $request->file('image');
+              $mimeType = $image->getClientMimeType();
+                if (in_array($mimeType, ['image/jpeg','image/jpg','image/png'])) {
+                  $filename = time() . '.' . $image->getClientOriginalExtension();
+                  $filePath = public_path('uploads/admin/') . $filename;
+    
+                  $size = getimagesize($_FILES['image']['tmp_name']);
+                  $resize=image_resize($size);
+                  $width=$resize['width'];
+                  $height=$resize['height'];
+    
+                  $image = Image::load($image->getPathname())
+                  ->width($width)
+                  ->height($height)
+                  ->save($filePath);
+                  $model->image=$filename;
+                }
             }
            
             $model->save();
@@ -121,27 +122,28 @@ class MemberController extends Controller
         $model->serial=$request->input('serial');
 
         if ($request->hasfile('image')) {
-           $imgfile = 'booking-';
-           $size = $request->file('image')->getsize();
-           $file = $_FILES['image']['tmp_name'];
-           $hw = getimagesize($file);
-           $w = $hw[0];
-           $h = $hw[1];
-        //    if ($w < 310 && $h < 310) {
-             $path = public_path('uploads/admin') . '/' . $model->image;
-              if(File::exists($path)){
+              $path = public_path('uploads/admin') . '/' . $model->image;
+               if(File::exists($path)){
                   File::delete($path);
                 }
-               $image = $request->file('image');
-               $new_name = $imgfile . rand() . '.' . $image->getClientOriginalExtension();
-               $image->move(public_path('uploads/admin'), $new_name);
-               $model->image = $new_name;
-        //    } else {
-        //       return response()->json([
-        //           'status' =>300,
-        //           'message' =>'Image size must be 300*300px',
-        //       ]);
-        //     }
+
+              $image = $request->file('image');
+              $mimeType = $image->getClientMimeType();
+                if (in_array($mimeType, ['image/jpeg','image/jpg','image/png'])) {
+                  $filename = time() . '.' . $image->getClientOriginalExtension();
+                  $filePath = public_path('uploads/admin/') . $filename;
+    
+                  $size = getimagesize($_FILES['image']['tmp_name']);
+                  $resize=image_resize($size);
+                  $width=$resize['width'];
+                  $height=$resize['height'];
+    
+                  $image = Image::load($image->getPathname())
+                  ->width($width)
+                  ->height($height)
+                  ->save($filePath);
+                  $model->image=$filename;
+                }
         }
        
          $model->update();   

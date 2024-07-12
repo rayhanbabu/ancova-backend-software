@@ -24,8 +24,10 @@ use App\Http\Controllers\BackendApiController;
       Route::get('{dept_id}/collor_view/', [BackendApiController::class,'collor_view']);
 
       Route::get('{dept_id}/notice/{category}',[BackendApiController::class,'notice_view']);
+      Route::get('{dept_id}/notice_details/{category}/{id}',[BackendApiController::class,'notice_details']);
       Route::post('{dept_id}/contact_form', [BackendApiController::class,'contact_form']);
       Route::get('{dept_id}/member/{category}',[BackendApiController::class,'member_view']);
+      Route::get('{dept_id}/member_details/{category}/{id}',[BackendApiController::class,'member_details']);
     
 
 

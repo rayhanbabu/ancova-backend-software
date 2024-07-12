@@ -8,7 +8,7 @@ $currentDate = new DateTime();
 <?php $interval= $currentDate->diff(new DateTime($row->domain_expired));  
                     
                 
-                  if($interval->format('%m')>0){
+                  if($interval->format('%m')<=0){
                      $over = 'style="background:#fccccc"';
                   }else{ $over = ''; } ?>
            <tr <?php echo  $over; ?> >
@@ -33,7 +33,7 @@ $currentDate = new DateTime();
                   <td>  {{ $row->service_info}}</td>
                   <td>  {{ $row->domain_name}}</td>
                   <td>  {{ $row->domain_expired}}</td>
-                  <td> <?php  echo $interval->format('%y years, %m months'); ?> </td>
+                  <td> <?php  echo $interval->format('%y-%m-%d day'); ?> </td>
                   <td>  {{ $row->domain_info}}</td>
                   <td>  {{ $row->total_amount}}</td>
                   <td>  {{ $row->discount_info}}</td>
