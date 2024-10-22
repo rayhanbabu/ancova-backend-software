@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Notice;
 use App\Models\Member;
+use Illuminate\Support\Facades\DB;
 
 class BackendApiController extends Controller
 {
 
+  
 
   public function home_view(Request $request){
 
@@ -172,6 +174,44 @@ class BackendApiController extends Controller
                ],200);     
           }
       }
+
+
+      public function geolocation_store_get(Request $request){
+               
+           $data=$request->all();
+           $json_string = json_encode($data);
+
+           $sensor['geolocation'] = $json_string;
+           $sensor['method_type'] = "GET";
+           DB::table('sensors')->insert($sensor);
+           return response()->json([
+               'status'=>"success",  
+               'message'=>'Get Data Added Successfull',
+            ],200);     
+      }
+
+
+      public function geolocation_store_post(Request $request){
+               
+        $data=$request->all();
+        $json_string = json_encode($data);
+        
+        $sensor['geolocation'] = $json_string;
+        $sensor['method_type'] = "POST";
+        DB::table('sensors')->insert($sensor);
+        return response()->json([
+            'status'=>"success",  
+            'message'=>'Post Data Added Successfull',
+         ],200);     
+   }
+
+   public function geolocation_show(Request $request){
+    $data=DB::table('sensors')->orderBy('id','desc')->get();
+    return response()->json([
+         'status'=>"success",  
+         'data'=>$data,
+     ],200);     
+}
 
      
 }
