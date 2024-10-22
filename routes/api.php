@@ -32,7 +32,7 @@ use App\Http\Controllers\BackendApiController;
 
       Route::get('/geolocation/store',[BackendApiController::class,'geolocation_store_get']);
       Route::post('/geolocation/store',[BackendApiController::class,'geolocation_store_post']);
-      Route::post('/geolocation',[BackendApiController::class,'geolocation_show']);
+      Route::get('/geolocation',[BackendApiController::class,'geolocation_show']);
 
 
 
