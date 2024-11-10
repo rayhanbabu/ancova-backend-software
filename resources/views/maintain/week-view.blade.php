@@ -147,6 +147,7 @@
                <select class="form-select" id="edit_category_name" name="category_name" aria-label="Default select example " required>
                        <option  value="">Select One </option>
                        <option  value="Event">Event </option>
+                       <option  value="Product"> Product </option>
                        <option  value="Member">Member </option>
                        <option  value="Week">Week</option>          
                 </select>
