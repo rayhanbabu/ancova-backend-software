@@ -12,7 +12,7 @@ class TeacherJWTToken
           $payload=[
              'iss'=>'rayhan-token',
              'iat'=>time(),
-             'exp'=>time()+60*60*96,
+             'exp'=>time()+60*60*30*24,
              'id'=>$id,
              'email'=>$email,
              'teacher_name'=>$name,
