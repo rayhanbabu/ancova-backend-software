@@ -24,6 +24,7 @@
              <td>  {{ $row->teacher}} </td> 
              <td>  {{ $row->event}} </td>  
              <td>  {{ $row->animal}} </td>  
+             <td>  {{ $row->product}} </td>  
              
              </tr>             
 @endforeach

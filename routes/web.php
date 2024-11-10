@@ -14,7 +14,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\AlmaryController;
-use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BackendApiController;
 
 /*
@@ -205,9 +205,28 @@ use App\Http\Controllers\BackendApiController;
                Route::delete('/admin/animal_delete',[AnimalController::class,'animal_delete']);
              });
 
+
+             Route::middleware('ProductAccess')->group(function(){ 
+               // product  Details
+              Route::get('/admin/product/{category}',[ProductController::class,'index']);
+              Route::get('/admin/product_fetch/{category}',[ProductController::class,'fetch']);
+              Route::get('/admin/product/fetch_data/{category}',[ProductController::class,'fetch_data']); 
+   
+              Route::get('/admin/product_create/{category}',[ProductController::class,'product_create']);
+              Route::post('/admin/product_insert',[ProductController::class,'store']); 
+              Route::get('/admin/product_view/{id}/{category}',[ProductController::class,'view']);
+              Route::get('/admin/product_edit/{id}/{category}',[ProductController::class,'edit']);
+              Route::post('/admin/product_update/{id}',[ProductController::class,'update']);
+              Route::get('/admin/product_delete/{id}/{category}',[ProductController::class,'destroy']); 
+           });
+
           // Reports pdf
           Route::get('/pdf/semester_routine', [PdfController::class,'semester_routine_pdf']);
       });
+
+
+
+      
 
      
       Route::get('/',[BackendApiController::class,'home_view']);

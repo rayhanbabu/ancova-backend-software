@@ -66,6 +66,7 @@
           <th  width="20%"> Phone</th>
           <th  width="20%"> Subject</th>
           <th  width="20%"> Description</th>
+          <th  width="10%"> Product Id </th>
           <th  width="10%"> </th>
 		      <th  width="10%"> </th>
           <th  width="10%"> </th>

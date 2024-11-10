@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Notice;
 use App\Models\Member;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class BackendApiController extends Controller
@@ -133,6 +134,7 @@ class BackendApiController extends Controller
          ],
          );
   
+       $product_id = $request->input('product_id',''); 
        if($validator->fails()){
               return response()->json([
                 'status'=>700,
@@ -145,6 +147,7 @@ class BackendApiController extends Controller
               $model->collor_des=$request->input('collor_des');
               $model->email=$request->input('email');
               $model->phone=$request->input('phone');
+              $model->product_id=$request->input('product_id');
               $model->subject=$request->input('subject');
               if($request->hasfile('image')) {
                 $imgfile = 'booking-';
@@ -174,6 +177,42 @@ class BackendApiController extends Controller
                ],200);     
           }
       }
+
+
+
+      public function product_view(request $request ,$dept_id,$category){
+    
+        $query=Product::query();
+        if($search=$request->search){
+           $query->whereRaw("products.product_id  LIKE '%".$search."%'");
+         }
+
+         //if($sort=$request->sort){
+         // $query->orderBy("member_card",$sort);}
+
+          
+        $perPage=$request->input('perPage',5);
+        $page=$request->input('page',1);
+       
+        $query->leftjoin('weeks','weeks.id','=','products.category');
+
+        $query->where('products.category',$category)->where('products.dept_id',$dept_id);
+
+        $query->select('weeks.week as category_name','products.*');
+
+          $total=$query->count();
+          $query->orderBy("id", 'desc');
+          $result=$query->offset(($page-1) * $perPage)->limit($perPage)->get();
+        
+
+        return response()->json([
+          'message'=>"Successfully fetched",
+          'data'=>$result, 
+          'total'=>$total,
+          'page'=>$page,
+          'last_page'=>ceil($total/$perPage)
+        ]);
+    }
 
 
       public function geolocation_store_get(Request $request){

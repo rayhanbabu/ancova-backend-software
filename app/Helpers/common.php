@@ -75,6 +75,13 @@
             return $data;
         }
 
+        function product_category(){  
+              $token_teacher=Cookie::get('token_teacher');
+              $result=TeacherJWTToken::ReadToken($token_teacher);    
+              $data=Week::where('category_name','Product')->where('dept_id',$result->dept_id)->orderby('serial','asc')->orderby('week','asc')->get();
+              return $data;
+          }
+
         
         function teacher_info(){
             $teacher_info=Cookie::get('teacher_info');
@@ -86,7 +93,7 @@
               $token_teacher=Cookie::get('token_teacher');
               $result=TeacherJWTToken::ReadToken($token_teacher);
               $teacher_access = Teacher::where('dept_id',$result->dept_id)->where('role','admin')
-                ->select('teacher','member','payment','event','animal')->first();
+                ->select('teacher','member','payment','event','animal','product')->first();
               return $teacher_access;
           }
 
@@ -131,6 +138,14 @@
                        return false;
                   }
                }
+
+               function product_access(){
+                if(teacher_access()->product=="Yes"){
+                     return true;
+                }else{
+                     return false;
+                }
+             }
   
 
 
@@ -168,7 +183,7 @@ function week_details($week_id){
 
 function image_resize($size){
    //Resize the image
-   $maxWidth = 1420;
+   $maxWidth = 1000;
    $size=$size;
 
    // Get the original dimensions of the image

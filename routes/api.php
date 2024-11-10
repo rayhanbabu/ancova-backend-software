@@ -29,6 +29,7 @@ use App\Http\Controllers\BackendApiController;
       Route::get('{dept_id}/member/{category}',[BackendApiController::class,'member_view']);
       Route::get('{dept_id}/member_details/{category}/{id}',[BackendApiController::class,'member_details']);
     
+      Route::get('{dept_id}/product/{category}',[BackendApiController::class,'product_view']);
 
       Route::get('/geolocation/store',[BackendApiController::class,'geolocation_store_get']);
       Route::post('/geolocation/store',[BackendApiController::class,'geolocation_store_post']);

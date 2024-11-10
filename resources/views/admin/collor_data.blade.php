@@ -6,6 +6,7 @@
                 <td>  {{ $row->phone}} </td>
                 <td>  {{ $row->subject}} </td>
                 <td>  {{ $row->collor_des}} </td>
+                <td>  {{ $row->product_id}} </td>
                 <td>
                   @if($row->collor_status == 1)
                    <a href="#" class="btn btn-success btn-sm">Active<a>
