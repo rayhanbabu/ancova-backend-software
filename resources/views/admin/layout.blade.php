@@ -97,10 +97,10 @@
   </div>
 
        @if(teacher_login_access())
-        <a class="nav-link @yield('teacher')" href="{{url('/admin/teacher_view')}}">
-          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-             Teacher 
-        </a>
+          <a class="nav-link @yield('teacher')" href="{{url('/admin/teacher_view')}}">
+            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+               Manager 
+           </a>
         @endif
 
         @if(payment_access())
@@ -114,6 +114,25 @@
                 Payment View 
         </a>
         @endif
+
+
+        @if(product_access())
+        <a class="nav-link @yield('notice_select')  
+          collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsfour" aria-expanded="false" aria-controls="collapseLayouts">
+          <div class="sb-nav-link-icon "><i class="fas fa-columns"></i></div>
+            Product
+          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+        </a>
+
+        <div class="collapse" id="collapseLayoutsfour" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+           <nav class="sb-sidenav-menu-nested nav">
+                @foreach(product_category() as $row)                   
+                 <a class="nav-link @yield('product/'.$row->id)" href="{{url('/admin/product/'.$row->id)}}">{{$row->week}} </a>                  
+               @endforeach
+           </nav>
+        </div>
+      @endif
+
 
         @if(member_access())
        <a class="nav-link @yield('sleeve')  

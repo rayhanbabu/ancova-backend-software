@@ -90,7 +90,8 @@ class DeptController extends Controller
          ->select('univers.university','depts.*','teachers.email','teachers.phone'
          ,'teachers.role','teachers.id as teacher_id','teachers.password'
          ,'teachers.teacher_status','teachers.login_code' ,'teachers.teacher'
-         ,'teachers.member','teachers.event','teachers.payment','teachers.animal')->first();
+         ,'teachers.member','teachers.event','teachers.payment','teachers.animal'
+         ,'teachers.product')->first();
           return response()->json([
              'status'=>200,  
               'data'=>$data,
@@ -110,6 +111,7 @@ class DeptController extends Controller
          one lowercase letter and one number'
       ]);
   
+     
       $maintain_id = $request->header('maintain_id');
       $role = $request->header('role');
       $university_assign = $request->header('university_assign');
@@ -149,6 +151,7 @@ class DeptController extends Controller
             $teacher->member =$request->input('member');
             $teacher->payment =$request->input('payment');
             $teacher->animal =$request->input('animal');
+            $teacher->product =$request->input('product');
             $teacher->created_by=$maintain_id;
             $teacher->update(); 
            }
@@ -179,16 +182,15 @@ class DeptController extends Controller
      } 
     
   
-    public function fetch(){
-       $data=Dept::leftjoin('univers','univers.id', '=','depts.university_id')
-         ->leftjoin('teachers','teachers.dept_id', '=','depts.id')
-         ->where('teachers.role','admin')
-         ->select('univers.university','depts.*','teachers.email','teachers.phone','teachers.login_code'
-         ,'teachers.role','teachers.id as teacher_id','teachers.password','teachers.teacher_status'
-         ,'teachers.teacher','teachers.member','teachers.event','teachers.payment','teachers.animal')->paginate(10);
-     
-        return view('maintain.dept_data',compact('data'));
-     }
+     public function fetch(){
+        $data=Dept::leftjoin('univers','univers.id', '=','depts.university_id')
+          ->leftjoin('teachers','teachers.dept_id', '=','depts.id')
+           ->where('teachers.role','admin')
+           ->select('univers.university','depts.*','teachers.email','teachers.phone','teachers.login_code'
+           ,'teachers.role','teachers.id as teacher_id','teachers.password','teachers.teacher_status'
+           ,'teachers.teacher','teachers.member','teachers.event','teachers.payment','teachers.animal','teachers.product')->paginate(10);
+           return view('maintain.dept_data',compact('data'));
+      }
   
   
   
