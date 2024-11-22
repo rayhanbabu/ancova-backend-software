@@ -126,6 +126,17 @@ class BackendApiController extends Controller
       }
 
 
+      public function product_details(Request $request ,$dept_id,$category,$id){
+        $data= Product::leftjoin('weeks','weeks.id', '=','products.category')
+        ->where('products.dept_id',$dept_id)->where('products.category',$category)->where('products.id',$id)
+        ->select('weeks.week as category_name','products.*')->orderby('serial','asc')->orderby('id','desc')->first();
+         return response()->json([
+              'status'=>'success',
+              'data'=>$data 
+          ],200);
+     }
+
+
   
      public function contact_form(Request $request,$dept_id){
         $validator=\Validator::make($request->all(),[    
