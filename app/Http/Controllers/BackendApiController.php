@@ -11,6 +11,7 @@ use App\Models\Notice;
 use App\Models\Member;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class BackendApiController extends Controller
 {
@@ -262,6 +263,31 @@ class BackendApiController extends Controller
          'data'=>$data,
      ],200);     
 }
+
+
+   public function club_product(Request $request){
+      
+      //try {  
+
+       $dayName=$request->dayName;
+       $response = Http::get('https://dhakauniversityclub.com/api/getProductByDay?dayName=Sat');
+       if ($response->successful()) {
+           $data = $response->json();
+            return response()->json([
+               'status' =>'success',
+               'data' => $data,
+            ],200);
+          }
+      //  } catch (Exception $e) {
+      //      return response()->json([
+      //         'status' => 501,
+      //         'message' => 'Somting Error',
+      //      ],501);
+      // }
+    
+
+
+   }
 
      
 }

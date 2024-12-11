@@ -3,7 +3,6 @@
 @section('week','active')
 @section('content')
 
- 
 
  <div class="row mt-2 mb-0 mx-1 shadow p-1">
     
