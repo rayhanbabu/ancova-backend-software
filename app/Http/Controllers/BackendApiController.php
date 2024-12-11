@@ -268,9 +268,9 @@ class BackendApiController extends Controller
    public function club_product(Request $request){
       
       //try {  
-
-       $dayName=$request->dayName;
-       $response = Http::get('https://dhakauniversityclub.com/api/getProductByDay?dayName=Sat');
+          
+      $dayName=$request->dayName;
+       $response = Http::get('https://dhakauniversityclub.com/api/getProductByDay?dayName='.$dayName.'');
        if ($response->successful()) {
            $data = $response->json();
             return response()->json([
