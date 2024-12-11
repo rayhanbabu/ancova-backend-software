@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
         'EventAccess' => \App\Http\Middleware\EventAccess::class,
         'MemberAccess' => \App\Http\Middleware\MemberAccess::class,
         'PaymentAccess' => \App\Http\Middleware\PaymentAccess::class,
+        'DuClubToken' => \App\Http\Middleware\DuClubToken::class,
         'AdminToken' => \App\Http\Middleware\AdminToken::class,
         'TeacherTokenExist' => \App\Http\Middleware\TeacherTokenExist::class,
         'TeacherToken' => \App\Http\Middleware\TeacherToken::class,

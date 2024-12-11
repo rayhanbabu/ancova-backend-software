@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackendApiController;
+use App\Http\Controllers\DuclubController;
 
 
 /*
@@ -37,7 +38,30 @@ use App\Http\Controllers\BackendApiController;
       Route::get('/geolocation',[BackendApiController::class,'geolocation_show']);
 
       
-      Route::get('/club_product',[BackendApiController::class,'club_product']);
+         //Du Club routes
+         Route::get('/duclub/api/homepage', [TestimonialController::class,'apidu_homepage']);
+         Route::get('/duclub/api/product_view', [DuclubController::class,'product_view']);
+         Route::get('/duclub/api/login/{phone}', [DuclubController::class,'duclub_login']);
+         Route::get('/duclub/api/VerifyLogin/{phone}/{otp}',[DuclubController::class, 'duclub_VerifyLogin']);
+         Route::get('/duclub/api/product_view1', [DuclubController::class,'product_view1']);
+  
+  
+         Route::get('/dumess/api/term', [HomepageController::class,'du_term']);
+         Route::get('/dumess/api/privacy', [HomepageController::class,'du_privacy']);
+         Route::get('/maintain/HomePage/{category}', [HomepageController::class,'maintain_homepage']);
+  
+    Route::middleware('DuClubToken')->group(function(){ 
+         Route::get('/duclub/api/member_ledger', [DuclubController::class,'member_ledger']);
+         Route::post('/duclub/api/product_add', [DuclubController::class,'product_add']);
+         Route::get('/duclub/api/pending_product_view', [DuclubController::class,'pending_product_view']);
+         Route::get('/duclub/api/product_delete/{saleID}', [DuclubController::class,'product_delete']);
+         Route::get('/duclub/api/duclub_info', [DuclubController::class,'duclub_info']);
+         Route::post('/duclub/api/event_registation', [DuclubController::class,'event_registation']);
+         Route::get('/duclub/api/event_registation_show/{year}', [DuclubController::class,'event_registation_show']);
+    }); 
+          
+        
+  
 
 
 
