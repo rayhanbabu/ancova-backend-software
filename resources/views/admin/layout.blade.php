@@ -183,6 +183,23 @@
 
         @endif
 
+
+
+        
+    @if(duclub_access())
+        <a class="nav-link @yield('dataview')" href="{{url('maintain/dataview')}}">
+          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+              Event Setting 
+        </a>
+
+        <a class="nav-link @yield('duclub_event')" href="{{url('/duclub/event')}}">
+          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+             Event Registration 
+        </a>
+
+        @endif
+
+
          
 
 

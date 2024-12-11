@@ -71,6 +71,7 @@
            <th  width="10%"> Event Access</th>
            <th  width="10%"> Animal Access</th>
            <th  width="10%"> Product Access</th>
+           <th  width="10%"> Du Club Access</th>
       </tr>
 
        <tr>
@@ -310,6 +311,15 @@
                       <option value="Yes">Yes</option>
                     </select>
                </div>
+
+
+               <div class="col-lg-6 my-1">   
+                   <label class="">Du Club Access <span style="color:red;"> * </span></label>
+                    <select class="form-control mb-2" id="edit_duclub" name="duclub" aria-label="Default select example" required>
+                       <option value="No">No</option>
+                       <option value="Yes">Yes</option>
+                    </select>
+               </div>
          
             <ul id="edit_errorlist"> </ul>
          
@@ -447,6 +457,7 @@
               $("#edit_payment").val(response.data.payment); 
               $("#edit_animal").val(response.data.animal); 
               $("#edit_product").val(response.data.product); 
+              $("#edit_duclub").val(response.data.duclub); 
               $("#edit_established_date").val(response.data.established_date); 
             
               

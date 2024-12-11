@@ -25,6 +25,7 @@
              <td>  {{ $row->event}} </td>  
              <td>  {{ $row->animal}} </td>  
              <td>  {{ $row->product}} </td>  
+             <td>  {{ $row->duclub}} </td>  
              
              </tr>             
 @endforeach

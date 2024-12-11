@@ -16,6 +16,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\AlmaryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BackendApiController;
+use App\Http\Controllers\DuclubController;
 
 /*
 |--------------------------------------------------------------------------
@@ -219,6 +220,18 @@ use App\Http\Controllers\BackendApiController;
               Route::post('/admin/product_update/{id}',[ProductController::class,'update']);
               Route::get('/admin/product_delete/{id}/{category}',[ProductController::class,'destroy']); 
            });
+
+
+           Route::middleware('DuclubAccess')->group(function(){
+               //Data defoult data view
+                Route::get('maintain/dataview',[DuclubController::class,'dataview']);
+                Route::post('maintain/dataedit',[DuclubController::class,'dataedit']);
+                Route::get('duclub/event',[DuclubController::class,'duclub_event']);
+                Route::get('duclub/event/delete/{id}',[DuclubController::class,'duclub_event_delete']);
+                Route::post('/duclubevnt/export',[DuclubController::class,'duclubevent_export']); 
+    
+             });
+    
 
           // Reports pdf
           Route::get('/pdf/semester_routine', [PdfController::class,'semester_routine_pdf']);

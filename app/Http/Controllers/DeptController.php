@@ -91,7 +91,7 @@ class DeptController extends Controller
          ,'teachers.role','teachers.id as teacher_id','teachers.password'
          ,'teachers.teacher_status','teachers.login_code' ,'teachers.teacher'
          ,'teachers.member','teachers.event','teachers.payment','teachers.animal'
-         ,'teachers.product')->first();
+         ,'teachers.product','teachers.duclub')->first();
           return response()->json([
              'status'=>200,  
               'data'=>$data,
@@ -152,6 +152,7 @@ class DeptController extends Controller
             $teacher->payment =$request->input('payment');
             $teacher->animal =$request->input('animal');
             $teacher->product =$request->input('product');
+            $teacher->duclub =$request->input('duclub');
             $teacher->created_by=$maintain_id;
             $teacher->update(); 
            }
@@ -188,7 +189,8 @@ class DeptController extends Controller
            ->where('teachers.role','admin')
            ->select('univers.university','depts.*','teachers.email','teachers.phone','teachers.login_code'
            ,'teachers.role','teachers.id as teacher_id','teachers.password','teachers.teacher_status'
-           ,'teachers.teacher','teachers.member','teachers.event','teachers.payment','teachers.animal','teachers.product')->paginate(10);
+           ,'teachers.teacher','teachers.member','teachers.event','teachers.payment'
+           ,'teachers.animal','teachers.product','teachers.duclub')->paginate(10);
            return view('maintain.dept_data',compact('data'));
       }
   
@@ -213,7 +215,7 @@ class DeptController extends Controller
                       ->orWhere('phone', 'like', '%'.$search.'%');
                 })->select('univers.university','depts.*','teachers.email','teachers.phone','teachers.login_code'
                 ,'teachers.role','teachers.id as teacher_id','teachers.password','teachers.teacher_status'
-                ,'teachers.teacher','teachers.member','teachers.event','teachers.payment','teachers.animal')->paginate(10);
+                ,'teachers.teacher','teachers.member','teachers.event','teachers.payment','teachers.animal','teachers.duclub')->paginate(10);
            return view('maintain.dept_data', compact('data'))->render();
                    
         }

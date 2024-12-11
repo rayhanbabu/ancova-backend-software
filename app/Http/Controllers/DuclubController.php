@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Duclub;
 use Illuminate\Http\Request;
+use App\Models\Teacher;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -318,13 +319,13 @@ class DuclubController extends Controller
     }
 
 
-
-
+  
 
     public function duclub_info(request $request)
      {
-          $data= Maintain::where("id",3)->select('id','registration_status','deadline_status'
-          ,'program_title','program_desc','program_year','message')->get();
+      $data = Teacher::where('duclub','Yes')->where('role','admin')
+      ->select('message','program_year','program_desc','program_title','deadline_status',
+      'registration_status','duclub','id')->first();
           return response()->json([
                'status' =>'success',
                'data' =>$data,
@@ -385,6 +386,36 @@ class DuclubController extends Controller
       }
 
 
+      //Dashboard
+
+      public function dataview(Request $request){
+
+        $dept_id = $request->header('dept_id');
+        $teacher_id = $request->header('id');
+        $maintain = Teacher::where('dept_id',$dept_id)->where('role','admin')
+        ->select('message','program_year','program_desc','program_title','deadline_status',
+        'registration_status','duclub','id')->get();
+      
+        return view('admin.dataview',['maintain'=>$maintain]);
+     }
+  
+  
+     public function dataedit(Request $request){
+                
+          $admin= Teacher::find($request->input('id'));
+          $admin->registration_status=$request->input('registration_status');
+          $admin->deadline_status=$request->input('deadline_status');
+          $admin->program_title=$request->input('program_title');
+          $admin->program_desc=$request->input('program_desc');
+          $admin->program_year=$request->input('program_year');
+          $admin->message=$request->input('message');
+          $admin->update();
+      return redirect()->back()->with('success','Maintain Update Successfuly');
+  
+    }
+  
+
+
 
       public function duclub_event(Request $request){
         if ($request->ajax()) {
@@ -404,7 +435,7 @@ class DuclubController extends Controller
                ->rawColumns(['edit','delete'])
                ->make(true);
             }
-          return view('maintain.duclubevent');  
+          return view('admin.duclubevent');  
       }
 
 
