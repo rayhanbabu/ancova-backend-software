@@ -93,7 +93,7 @@
               $token_teacher=Cookie::get('token_teacher');
               $result=TeacherJWTToken::ReadToken($token_teacher);
               $teacher_access = Teacher::where('dept_id',$result->dept_id)->where('role','admin')
-                ->select('teacher','member','payment','event','animal','product')->first();
+                ->select('teacher','member','payment','event','animal','product','duclub')->first();
               return $teacher_access;
           }
 
@@ -161,6 +161,16 @@
                 return false;
             }
         }
+
+
+
+        function duclub_access(){
+            if(teacher_access()->duclub=="Yes"){
+                  return true;
+             }else{
+                 return false;
+             }
+         }
 
  
 

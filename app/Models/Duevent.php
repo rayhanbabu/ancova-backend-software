@@ -13,6 +13,5 @@ class Duevent extends Model
          'duclub_id',
          'invite',
          'year',
-        
     ];
 }
