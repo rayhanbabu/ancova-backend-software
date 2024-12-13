@@ -356,7 +356,7 @@ class DuclubController extends Controller
 
           $duclub_id=$request->header('duclub_id');
           $year=$request->year;
-          $data= Duevent::where("duclub_id",$duclub_id)->where("year",$year)->get();
+          $data= Duevent::where("duclub_id",$duclub_id)->where("year",$year)->first();
 
           if($data->count()>0){
               return response()->json([
