@@ -101,25 +101,12 @@ class DuclubController extends Controller
                 //     ];
                 //  Mail::to($data['data']['email'])->send(new \App\Mail\ForgetMail($details));
 
-             $url = 'https://www.24bulksmsbd.com/api/smsSendApi';
-             $msg="Your DU Club One-Time PIN is ".$otp;
-                $data = array(
-                  'customer_id' => 182,
-                  'api_key' => 1.7298318410087E+26,
-                  'message' =>$msg,	
-                  'mobile_no' => $phone
-                );
-                
-                $curl = curl_init($url);
-                curl_setopt($curl, CURLOPT_POST, true);
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-                curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);     
-                $output = curl_exec($curl);
-                curl_close($curl);
-                $output;
+          
 
+                  $message="Your DU Club OTP is ".$otp;
+                  $number = $phone;
+                  sms_send($number, $message);
+                 
                   return response()->json([
                         'status' => 'success',
                         'message' => "We've sent a 4-digit One-Time PIN in your phone ",

@@ -26,8 +26,7 @@
              <td>  {{ $row->animal}} </td>  
              <td>  {{ $row->product}} </td>  
              <td>  {{ $row->duclub}} </td>  
-             
-             </tr>             
+          </tr>             
 @endforeach
   <tr class="pagin_link">
         <td colspan="4" align="center">
