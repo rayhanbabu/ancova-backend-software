@@ -148,6 +148,8 @@ class DuclubController extends Controller
                        'name' => $duclub->name,
                        'card' => $duclub->member_card,
                        'duclub_token' => $duclub_token,
+                       'designation' => $duclub->designation,
+                       'dept' => $duclub->dept,
                   ],200);
              }else{
                   return response()->json([
@@ -356,7 +358,7 @@ class DuclubController extends Controller
 
           $duclub_id=$request->header('duclub_id');
           $year=$request->year;
-          $data= Duevent::where("duclub_id",$duclub_id)->where("year",$year)->get();
+          $data= Duevent::where("duclub_id",$duclub_id)->where("year",$year)->first();
 
           if($data->count()>0){
               return response()->json([
