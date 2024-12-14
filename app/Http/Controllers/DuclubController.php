@@ -148,6 +148,8 @@ class DuclubController extends Controller
                        'name' => $duclub->name,
                        'card' => $duclub->member_card,
                        'duclub_token' => $duclub_token,
+                       'designation' => $duclub->designation,
+                       'dept' => $duclub->dept,
                   ],200);
              }else{
                   return response()->json([
