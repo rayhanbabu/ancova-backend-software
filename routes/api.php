@@ -40,7 +40,7 @@ use App\Http\Controllers\DuclubController;
       
          //Du Club routes
          Route::get('/duclub/api/homepage', [TestimonialController::class,'apidu_homepage']);
-         Route::get('/duclub/api/product_view', [DuclubController::class,'product_view']);
+        
          Route::get('/duclub/api/login/{phone}', [DuclubController::class,'duclub_login']);
          Route::get('/duclub/api/VerifyLogin/{phone}/{otp}',[DuclubController::class, 'duclub_VerifyLogin']);
          Route::get('/duclub/api/product_view1', [DuclubController::class,'product_view1']);
@@ -51,6 +51,7 @@ use App\Http\Controllers\DuclubController;
          Route::get('/maintain/HomePage/{category}', [HomepageController::class,'maintain_homepage']);
   
     Route::middleware('DuClubToken')->group(function(){ 
+         Route::get('/duclub/api/product_view', [DuclubController::class,'product_view']);
          Route::get('/duclub/api/member_ledger', [DuclubController::class,'member_ledger']);
          Route::post('/duclub/api/product_add', [DuclubController::class,'product_add']);
          Route::get('/duclub/api/pending_product_view', [DuclubController::class,'pending_product_view']);
